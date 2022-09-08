@@ -1,4 +1,4 @@
-package com.ssaurel.lockdevice;
+package com.ssaurel.lockdevice; //패키지 오류
 
 import android.app.admin.DeviceAdminReceiver;
 import android.content.Context;
