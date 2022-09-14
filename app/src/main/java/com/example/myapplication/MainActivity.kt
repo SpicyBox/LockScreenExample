@@ -16,6 +16,18 @@ class MainActivity : AppCompatActivity() {
         IntentFilter(Intent.ACTION_AIRPLANE_MODE_CHANGED).also {
             registerReceiver(reciver,it)
         }
+
+        btn_start.setOnClickListener {
+            val intent = Intent(this@MainActivity, MusicPlayerService::class.java)
+            intent.action = Actions.START_FOREGROUND
+            startService(intent)
+        }
+
+        btn_stop.setOnClickListener {
+            val intent = Intent(this@MainActivity, MusicPlayerService::class.java)
+            intent.action = Actions.STOP_FOREGROUND
+            startService(intent)
+        }
     }
 
     override fun onStop() {
