@@ -17,7 +17,7 @@ class MainActivity : AppCompatActivity() {
             registerReceiver(reciver,it)
         }
 
-        btn_start.setOnClickListener {
+        btn_start.setOnClickListener { //왜 안될까...
             val intent = Intent(this@MainActivity, MusicPlayerService::class.java)
             intent.action = Actions.START_FOREGROUND
             startService(intent)
