@@ -4,34 +4,23 @@ import android.content.Intent
 import android.content.IntentFilter
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.widget.Button
 
 class MainActivity : AppCompatActivity() {
-    lateinit var reciver : AirplanModeChangeReceiver
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        reciver = AirplanModeChangeReceiver()
-        IntentFilter(Intent.ACTION_AIRPLANE_MODE_CHANGED).also {
-            registerReceiver(reciver,it)
-        }
+        val btn_start = findViewById<Button>(R.id.btn_start)
+        val btn_stop = findViewById<Button>(R.id.btn_stop)
 
-        btn_start.setOnClickListener { //왜 안될까...
-            val intent = Intent(this@MainActivity, MusicPlayerService::class.java)
-            intent.action = Actions.START_FOREGROUND
-            startService(intent)
+        btn_start.setOnClickListener {
+            this.startForegroundService(Intent(this, LockScreenService::class.java)
         }
 
         btn_stop.setOnClickListener {
-            val intent = Intent(this@MainActivity, MusicPlayerService::class.java)
-            intent.action = Actions.STOP_FOREGROUND
-            startService(intent)
+            this.stopService(Intent(this, LockScreenService::class.java)
         }
-    }
-
-    override fun onStop() {
-        super.onStop()
-        unregisterReceiver(reciver)
     }
 }
