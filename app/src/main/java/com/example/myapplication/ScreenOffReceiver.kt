@@ -4,7 +4,7 @@ import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
 
-class ScreenOffRecevier : BroadcastReceiver() {
+class ScreenOffReceiver : BroadcastReceiver() {
 
     override fun onReceive(context: Context, intent: Intent) {
         when (intent?.action) {
@@ -15,4 +15,5 @@ class ScreenOffRecevier : BroadcastReceiver() {
                 context?.startActivity(intent)
             }
         }
+    }
 }
