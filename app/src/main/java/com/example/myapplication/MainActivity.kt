@@ -1,7 +1,6 @@
 package com.example.myapplication
 
 import android.content.Intent
-import android.content.IntentFilter
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -16,7 +15,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         val btn_start = findViewById<Button>(R.id.btn_start)
-        val btn_stop = findViewById<Button>(R.id.btn_stop)
+        val btn_stop = findViewById<Button>(R.id.btn_end)
 
         btn_start.setOnClickListener {
             this.startForegroundService(Intent(this, LockScreenService::class.java))
