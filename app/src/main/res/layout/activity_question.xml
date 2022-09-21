@@ -3,8 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:gravity="center">
+    android:gravity="center"
+    android:orientation="vertical">
 
     <TextView
         android:id="@+id/title"
@@ -22,9 +22,9 @@
             android:id="@+id/englishWord"
             android:layout_width="150dp"
             android:layout_height="200dp"
-            android:layout_marginRight="35dp"
             android:layout_marginLeft="35dp"
             android:layout_marginTop="35dp"
+            android:layout_marginRight="35dp"
             android:text="단어 맞추기" />
 
         <Button

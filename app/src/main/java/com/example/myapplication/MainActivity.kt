@@ -5,6 +5,7 @@ import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
+import android.widget.Switch
 import androidx.annotation.RequiresApi
 
 class MainActivity : AppCompatActivity() {
@@ -16,6 +17,7 @@ class MainActivity : AppCompatActivity() {
 
         val btn_start = findViewById<Button>(R.id.btn_start)
         val btn_stop = findViewById<Button>(R.id.btn_end)
+        val lockScreenSwitch = findViewById<Switch>(R.id.lockScreenSwitch)
 
         btn_start.setOnClickListener {
             this.startForegroundService(Intent(this, LockScreenService::class.java))
@@ -23,6 +25,14 @@ class MainActivity : AppCompatActivity() {
 
         btn_stop.setOnClickListener {
             this.stopService(Intent(this, LockScreenService::class.java))
+        }
+
+        lockScreenSwitch.setOnCheckedChangeListener{ _, isChecked ->
+            if(isChecked){
+                this.startForegroundService(Intent(this, LockScreenService::class.java))
+            } else {
+                this.stopService(Intent(this, LockScreenService::class.java))
+            }
         }
     }
 }
