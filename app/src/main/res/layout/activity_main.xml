@@ -42,7 +42,6 @@
         android:minHeight="50dp"
         android:layout_marginLeft="70dp"
         android:layout_marginRight="70dp"
-        android:onClick="@+id/onToggleClicked"
         android:text="잠금화면 활성화 스위치" />
 
 </LinearLayout>
