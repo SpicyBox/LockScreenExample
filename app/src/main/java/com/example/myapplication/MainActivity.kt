@@ -7,6 +7,7 @@ import android.os.Bundle
 import android.widget.Button
 import android.widget.Switch
 import androidx.annotation.RequiresApi
+import androidx.constraintlayout.widget.ConstraintSet
 
 class MainActivity : AppCompatActivity() {
 
@@ -15,15 +16,15 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        val btn_start = findViewById<Button>(R.id.btn_start)
-        val btn_stop = findViewById<Button>(R.id.btn_end)
+        val questionBtn = findViewById<Button>(R.id.questionBtn)
+        val alarmBtn = findViewById<Button>(R.id.alarmBtn)
         val lockScreenSwitch = findViewById<Switch>(R.id.lockScreenSwitch)
 
-        btn_start.setOnClickListener {
-            this.startForegroundService(Intent(this, LockScreenService::class.java))
+       questionBtn.setOnClickListener {
+            startActivity(Intent(this,QuestionActivity::class.java))
         }
 
-        btn_stop.setOnClickListener {
+        alarmBtn.setOnClickListener {
             this.stopService(Intent(this, LockScreenService::class.java))
         }
 

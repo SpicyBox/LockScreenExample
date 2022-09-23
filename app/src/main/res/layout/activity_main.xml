@@ -15,24 +15,24 @@
         android:textSize="35dp"/>
 
     <LinearLayout
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
+        android:layout_marginTop="50dp"
         android:layout_gravity="center">
 
         <Button
-            android:id="@+id/btn_end"
+            android:id="@+id/alarmBtn"
             android:layout_width="150dp"
             android:layout_height="200dp"
-            android:layout_margin="40dp"
-            android:text="서비스 종료" />
+            android:layout_marginRight="40dp"
+            android:text="알람" />
 
         <Button
-            android:id="@+id/btn_start"
+            android:id="@+id/questionBtn"
             android:layout_width="150dp"
             android:layout_height="200dp"
-            android:layout_marginTop="40dp"
-            android:text="서비스 시작" />
+            android:text="문제풀기" />
     </LinearLayout>
 
     <Switch
