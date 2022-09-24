@@ -5,9 +5,10 @@
       <map>
         <entry key="app/src/main/res/layout/activity_lock.xml" value="0.1" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.19532012939453117" />
-        <entry key="app/src/main/res/layout/activity_question.xml" value="0.25955505371093757" />
+        <entry key="app/src/main/res/layout/activity_question.xml" value="0.1" />
         <entry key="app/src/main/res/layout/activity_question_choice.xml" value="0.182518115942029" />
         <entry key="app/src/main/res/layout/activity_question_play.xml" value="0.182518115942029" />
+        <entry key="app/src/main/res/layout/activity_result.xml" value="0.10120849609374999" />
         <entry key="app/src/main/res/layout/content_main.xml" value="0.182518115942029" />
         <entry key="app/src/main/res/layout/fragment_first.xml" value="0.182518115942029" />
         <entry key="app/src/main/res/layout/fragment_second.xml" value="0.182518115942029" />
