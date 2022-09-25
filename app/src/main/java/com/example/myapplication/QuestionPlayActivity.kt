@@ -34,6 +34,7 @@ class QuestionPlayActivity:AppCompatActivity() {
 
         resultEnterBtn.setOnClickListener{
             scoreCount++
+            Toast.makeText(this, "알림", Toast.LENGTH_SHORT).show()
         }
 
         object : CountDownTimer(1000 * 6, 1000) {
@@ -46,6 +47,7 @@ class QuestionPlayActivity:AppCompatActivity() {
             override fun onFinish() {
                 // 타이머가 종료되면 호출
                 var query = "INSERT INTO userDB('highScore') values('${scoreCount}');"
+                scoreCount = 0
                 database.execSQL(query)
                 startQuestionPlayActivity()
             }

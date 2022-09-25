@@ -31,6 +31,7 @@
         <activity android:name=".QuestionActivity"/>
         <activity android:name=".QuestionPlayActivity"/>
         <activity android:name=".ResultActivity"/>
+
         <activity
             android:name=".MainActivity"
             android:exported="true" >
