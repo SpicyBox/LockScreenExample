@@ -7,19 +7,12 @@ import android.os.Bundle
 import android.os.CountDownTimer
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
-import com.example.myapplication.databinding.ActivityMainBinding
 
 class QuestionPlayActivity:AppCompatActivity() {
-
-    lateinit var  dbHelper: DBHelper
-    lateinit var  database: SQLiteDatabase
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_question_play)
-
-        dbHelper = DBHelper(this, "userDB.db", null, 1)
-        database = dbHelper.writableDatabase
 
         val timerTxt = findViewById<TextView>(R.id.timeTxt)
         val timeProgressBar = findViewById<ProgressBar>(R.id.timeProgressBar)
@@ -46,10 +39,6 @@ class QuestionPlayActivity:AppCompatActivity() {
 
             override fun onFinish() {
                 // 타이머가 종료되면 호출
-                var query = "INSERT INTO userDB('highScore') values('${scoreCount}');"
-                scoreCount = 0
-                database.execSQL(query)
-                startQuestionPlayActivity()
             }
         }.start()
     }
