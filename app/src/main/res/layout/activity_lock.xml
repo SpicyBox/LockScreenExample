@@ -6,7 +6,7 @@
     android:gravity="center">
 
     <TextView
-        android:id="@+id/multipleChoice"
+        android:id="@+id/multipleChoiceTxt"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="30dp"
@@ -21,14 +21,14 @@
         android:orientation="horizontal">
 
         <Button
-            android:id="@+id/choice1"
+            android:id="@+id/choice1Btn"
             android:layout_width="100dp"
             android:layout_height="wrap_content"
             android:layout_marginRight="30dp"
             android:text="choice1" />
 
         <Button
-            android:id="@+id/choice2"
+            android:id="@+id/choice2Btn"
             android:layout_width="100dp"
             android:layout_height="wrap_content"
             android:text="choice2" />
@@ -42,14 +42,14 @@
         android:gravity="center_horizontal">
 
         <Button
-            android:id="@+id/choice3"
+            android:id="@+id/choice3Btn"
             android:layout_width="100dp"
             android:layout_height="wrap_content"
             android:layout_marginRight="30dp"
             android:text="choice3" />
 
         <Button
-            android:id="@+id/choice4"
+            android:id="@+id/choice4Btn"
             android:layout_width="100dp"
             android:layout_height="wrap_content"
             android:text="Button" />
