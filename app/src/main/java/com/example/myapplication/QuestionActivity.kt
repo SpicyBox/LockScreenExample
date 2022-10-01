@@ -15,7 +15,11 @@ class QuestionActivity:AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_question)
 
-        lateinit var db: AppDatabase
+        var db = Room.databaseBuilder(
+            applicationContext,
+            AppDatabase::class.java,
+            "userDB"
+        ).build()
 
         val englishWordBtn = findViewById<Button>(R.id.englishWordBtn)
         val toeic = findViewById<Button>(R.id.toeicBtn)
@@ -23,10 +27,7 @@ class QuestionActivity:AppCompatActivity() {
         englishWordBtn.setOnClickListener{
             startActivity(Intent(this,QuestionPlayActivity::class.java))
         }
-
-        db.userDao().insertHighScore(User("1"))
-        val hightScore = db.userDao().getAll()
-        Toast.makeText(this, hightScore.toString(), Toast.LENGTH_SHORT).show()
+        
     }
 
 }
