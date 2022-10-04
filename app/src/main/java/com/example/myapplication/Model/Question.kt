@@ -6,7 +6,7 @@ import androidx.room.PrimaryKey
 
 @Entity
 data class Question(
-    @PrimaryKey val qid: Int?,
+    @PrimaryKey(autoGenerate = true) val qid: Int?,
     @ColumnInfo val question: String?,
     @ColumnInfo val result: String?
 )
