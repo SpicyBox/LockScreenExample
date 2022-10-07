@@ -28,7 +28,6 @@ class LockActivity : AppCompatActivity(){
             buttonList.add(num)
         }
 
-
         multipleChoiceTxt.text = questionList[0].toString()
         choice1Btn.text = "고양이"
         choice2Btn.text = "개"
