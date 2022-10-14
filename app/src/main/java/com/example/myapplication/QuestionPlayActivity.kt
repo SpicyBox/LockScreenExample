@@ -27,8 +27,8 @@ class QuestionPlayActivity:AppCompatActivity() {
         val resultEnterBtn = findViewById<Button>(R.id.resultEnterBtn)
         val answerEnterEdit = findViewById<EditText>(R.id.answerEnterEdit)
 
-        var questionList = listOf("Cat", "Dog", "Book", "Bus", "Phone", "Mail", "Key", "Cap", "Chair", "Table","Cat")//문제 리스트
-        var answerList = listOf("cat", "dog", "book", "bus", "phone", "mail", "key", "cap", "chair", "table","cat") //정답 리스트(한글 안됨)
+        var questionList = listOf("Cat", "Dog", "Book", "Bus", "Phone", "Mail", "Key", "Cap", "Chair", "Table","Cat","Time")//문제 리스트
+        var answerList = listOf("cat", "dog", "book", "bus", "phone", "mail", "key", "cap", "chair", "table","cat","time") //정답 리스트(한글 안됨)
         var num = Random().nextInt(9)
         var scoreCount = 0
 
