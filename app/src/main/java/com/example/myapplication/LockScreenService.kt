@@ -49,7 +49,7 @@ class LockScreenService : Service() {
         manager.createNotificationChannel(chan)
 
         val builder = Notification.Builder(this, ANDROID_CHANNEL_ID)
-            .setContentTitle("getString(R.string.app_name)")
+            .setContentTitle(getString(R.string.app_name))
             .setContentText("잠금화면 활성중!")
 
         val notification = builder.build()
