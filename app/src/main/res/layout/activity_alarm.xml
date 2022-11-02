@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="70dp"
+        android:orientation="vertical"
+        android:gravity="center"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <TextView
+            android:id="@+id/alarmTimeTxt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="08 : 45"
+            android:textSize="34sp" />
+
+        <Button
+            android:id="@+id/seletTimeBtn"
+            android:layout_width="256dp"
+            android:layout_height="56dp"
+            android:text="시간 설정" />
+
+        <Button
+            android:id="@+id/setAlarmBtn"
+            android:layout_width="256dp"
+            android:layout_height="56dp"
+            android:text="알람 시작" />
+
+        <Button
+            android:id="@+id/cancelAlarmBtn"
+            android:layout_width="256dp"
+            android:layout_height="56dp"
+            android:text="알람 취소" />
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

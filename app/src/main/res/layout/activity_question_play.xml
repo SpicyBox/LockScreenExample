@@ -7,49 +7,62 @@
     android:orientation="vertical">
 
     <TextView
-        android:id="@+id/qeustionText"
+        android:id="@+id/scoreCountTxt"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="문제내용"
-        android:textAlignment="center"
-        android:textSize="34sp" />
+        android:layout_marginRight="20dp"
+        android:text="0점"
+        android:textAlignment="viewEnd"
+        android:textSize="20sp" />
 
-    <com.google.android.material.textfield.TextInputLayout
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
-        <com.google.android.material.textfield.TextInputEditText
+        <TextView
+            android:id="@+id/qeustionText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="문제내용"
+            android:textAlignment="center"
+            android:textSize="34sp" />
+
+        <EditText
             android:id="@+id/answerEnterEditText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="40dp"
-            android:hint="정답을 적어주세요" />
+            android:ems="10"
+            android:hint="정답을 입력해주세요"
+            android:inputType="textPersonName"
+            android:minHeight="48dp" />
 
-    </com.google.android.material.textfield.TextInputLayout>
+        <TextView
+            android:id="@+id/timeTxt"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="남은 시간"
+            android:textAlignment="center"
+            android:textSize="20sp" />
 
-    <TextView
-        android:id="@+id/timeTxt"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:text="남은 시간"
-        android:textAlignment="center"
-        android:textSize="20sp" />
+        <ProgressBar
+            android:id="@+id/timeProgressBar"
+            style="?android:attr/progressBarStyleHorizontal"
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:layout_marginHorizontal="30dp"
+            android:max="60000" />
 
-    <ProgressBar
-        android:id="@+id/timeProgressBar"
-        style="?android:attr/progressBarStyleHorizontal"
-        android:layout_width="match_parent"
-        android:layout_height="30dp"
-        android:max = "60000"
-        android:layout_marginHorizontal="30dp"/>
+        <Button
+            android:id="@+id/resultEnterBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="확인"
+            android:textAlignment="center" />
 
-    <Button
-        android:id="@+id/resultEnterBtn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:text="확인"
-        android:textAlignment="center" />
+    </LinearLayout>
 
 </LinearLayout>

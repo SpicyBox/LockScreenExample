@@ -4,6 +4,8 @@ import android.content.Intent
 import android.os.Bundle
 import android.os.CountDownTimer
 import android.util.Log
+import android.view.KeyEvent
+import android.view.KeyEvent.KEYCODE_ENTER
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.room.Room
@@ -20,23 +22,18 @@ class QuestionPlayActivity:AppCompatActivity() {
 
         val wordDb = Firebase.firestore
 
-        var db = Room.databaseBuilder(
-            applicationContext,
-            UserDatabase::class.java,
-            "userDB"
-        ).build()
-
         val qeustionText = findViewById<TextView>(R.id.qeustionText)
         val timerTxt = findViewById<TextView>(R.id.timeTxt)
         val timeProgressBar = findViewById<ProgressBar>(R.id.timeProgressBar)
         val resultEnterBtn = findViewById<Button>(R.id.resultEnterBtn)
         val answerEnterEditText = findViewById<EditText>(R.id.answerEnterEditText)
+        val scoreCountTxt = findViewById<TextView>(R.id.scoreCountTxt)
 
         wordDb.collection("EnglishWordList").document("EnglishWordList")
             .get()
             .addOnSuccessListener { document->
                 if (document != null) {
-                    Toast.makeText(this, "${document.data}", Toast.LENGTH_SHORT).show()
+                    //Toast.makeText(this, "${document.data}", Toast.LENGTH_SHORT).show()
 
                 } else {
                     Toast.makeText(this, "실패2", Toast.LENGTH_SHORT).show()
@@ -59,10 +56,28 @@ class QuestionPlayActivity:AppCompatActivity() {
             finish()
         }
 
+        answerEnterEditText.setOnKeyListener{ v, keyCode, event ->
+            if (event.action == KeyEvent.ACTION_DOWN && keyCode == KEYCODE_ENTER) {
+                if (answerEnterEditText.text.toString() == answerList[num]){
+                    Toast.makeText(this, "정답입니다.", Toast.LENGTH_SHORT).show()
+                    scoreCount++
+                    scoreCountTxt.text = scoreCount.toString() + "점"
+                    num = Random().nextInt(9)
+                    qeustionText.text = questionList[num]
+                    answerEnterEditText.text.clear()
+                } else {
+                    Toast.makeText(this, "오답입니다.", Toast.LENGTH_SHORT).show()
+                    answerEnterEditText.text.clear()
+                }
+            }
+            true
+        }
+
         resultEnterBtn.setOnClickListener{
             if (answerEnterEditText.text.toString() == answerList[num]){
                 Toast.makeText(this, "정답입니다.", Toast.LENGTH_SHORT).show()
                 scoreCount++
+                scoreCountTxt.text = scoreCount.toString() + "점"
                 num = Random().nextInt(9)
                 qeustionText.text = questionList[num]
             } else {
@@ -75,22 +90,10 @@ class QuestionPlayActivity:AppCompatActivity() {
                 // countDownInterval 마다 호출 (여기선 1000ms)
                 timerTxt.text = (p0 / 1000).toString()
                 timeProgressBar.setProgress(p0.toInt())
-
             }
 
             override fun onFinish() {
                 // 타이머가 종료되면 호출
-                val r = Runnable {
-                    val userDAO = db.userDao()
-                    val userScore: List<User> = userDAO.getAll()
-                    if (userScore[0].highScore!! < scoreCount) {
-                        val updateSocre = userDAO.updateHighScore(User(0, scoreCount))
-                    }
-                }
-
-                val thread = Thread(r)
-                thread.start()
-
                 startQuestionPlayActivity()
             }
         }.start()

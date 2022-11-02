@@ -9,8 +9,3 @@ import com.example.myapplication.Model.User
 abstract class UserDatabase : RoomDatabase() {
     abstract fun userDao() : UserDAO
 }
-
-@Database(entities = [Question::class], version = 1)
-abstract class QuestionDateBase : RoomDatabase() {
-    abstract  fun questionDao() : QuestionDAO
-}

@@ -36,7 +36,7 @@ class LockActivity : AppCompatActivity(){
 
         choice1Btn.setOnClickListener{
             Toast.makeText(this, "정답입니다.", Toast.LENGTH_SHORT).show()
-            System.exit(0)
+            finish()
         }
 
         choice2Btn.setOnClickListener{
