@@ -1,4 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
-
+    <item
+        android:id="@+id/mainIcon"
+        android:icon=""
+        android:title="main"
+        />
+    <item
+        android:id="@+id/questionIcon"
+        android:icon=""
+        android:title="question"
+        />
+    <item
+        android:id="@+id/myPageIcon"
+        android:icon=""
+        android:title="myPage"
+        />
 </menu>
