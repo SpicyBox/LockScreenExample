@@ -2,17 +2,17 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
         android:id="@+id/mainIcon"
-        android:icon="@drawable/home_48px"
+        android:icon="@drawable/ic_home"
         android:title="main"
         />
     <item
         android:id="@+id/questionIcon"
-        android:icon="@drawable/home_48px"
+        android:icon="@drawable/ic_home"
         android:title="question"
         />
     <item
         android:id="@+id/myPageIcon"
-        android:icon="@drawable/home_48px"
+        android:icon="@drawable/ic_home"
         android:title="myPage"
         />
 </menu>
