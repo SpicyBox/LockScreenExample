@@ -46,7 +46,7 @@ class ResultActivity:AppCompatActivity() {
         }
 
         backBtn.setOnClickListener{
-            startActivity(Intent(this, QuestionActivity::class.java))
+            startActivity(Intent(this, QuestionFragment::class.java))
         }
     }
 }

@@ -50,6 +50,7 @@ dependencies {
     implementation 'com.google.firebase:firebase-firestore:21.4.0'
     implementation 'com.google.firebase:firebase-common-ktx:20.2.0'
     implementation 'com.google.firebase:firebase-firestore-ktx:24.4.0'
+    implementation 'androidx.lifecycle:lifecycle-livedata-ktx:2.5.1'
     kapt "androidx.room:room-compiler:2.4.3"
 
     testImplementation 'junit:junit:4.13.2'

@@ -2,28 +2,27 @@ package com.example.myapplication
 
 import android.content.Intent
 import android.os.Bundle
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
-import android.widget.Toast
-import androidx.appcompat.app.AppCompatActivity
-import androidx.navigation.findNavController
-import androidx.room.Dao
+import androidx.fragment.app.Fragment
 import androidx.room.Room
 import com.example.myapplication.Model.User
 
-class QuestionActivity:AppCompatActivity() {
+class QuestionFragment : Fragment() {
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_question)
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
 
+        var view = inflater.inflate(R.layout.fragment_question, container, false)
         var db = Room.databaseBuilder(
-            applicationContext,
+            requireContext().applicationContext,
             UserDatabase::class.java,
             "userDB"
         ).build()
 
-        var wordMaxScoreTxt = findViewById<TextView>(R.id.wordMaxScoreTxt)
+        var wordMaxScoreTxt = view.findViewById<TextView>(R.id.wordMaxScoreTxt)
 
         val r = Runnable {
             val userDAO = db.userDao()
@@ -38,12 +37,13 @@ class QuestionActivity:AppCompatActivity() {
         val thread = Thread(r)
         thread.start()
 
-        val englishWordBtn = findViewById<Button>(R.id.englishWordBtn)
-        val toeicBtn = findViewById<Button>(R.id.toeicBtn)
+        val englishWordBtn = view.findViewById<Button>(R.id.englishWordBtn)
+        val toeicBtn = view.findViewById<Button>(R.id.toeicBtn)
 
         englishWordBtn.setOnClickListener{
-            startActivity(Intent(this,QuestionPlayActivity::class.java))
+            startActivity(Intent(getActivity(),QuestionPlayActivity::class.java))
         }
-    }
 
+        return view
+    }
 }

@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
-        android:id="@+id/mainIcon"
+        android:id="@+id/home"
         android:icon="@drawable/ic_home"
         android:title="main"
         />
     <item
-        android:id="@+id/questionIcon"
-        android:icon="@drawable/ic_home"
+        android:id="@+id/question"
+        android:icon="@drawable/ic_military_tech"
         android:title="question"
         />
     <item
-        android:id="@+id/myPageIcon"
-        android:icon="@drawable/ic_home"
-        android:title="myPage"
+        android:id="@+id/info"
+        android:icon="@drawable/ic_settings"
+        android:title="setting"
         />
 </menu>
