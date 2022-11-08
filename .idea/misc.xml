@@ -9,22 +9,29 @@
         <entry key="app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.2055" />
         <entry key="app/src/main/res/drawable-v24/ic_settings.xml" value="0.2055" />
         <entry key="app/src/main/res/drawable-v24/settings-48px.xml" value="0.2055" />
+        <entry key="app/src/main/res/drawable/history_edu-48px.xml" value="0.1115" />
         <entry key="app/src/main/res/drawable/ic_launcher_background.xml" value="0.1115" />
         <entry key="app/src/main/res/drawable/ic_military_tech.xml" value="0.2055" />
+        <entry key="app/src/main/res/drawable/ic_myinfo.xml" value="0.1115" />
+        <entry key="app/src/main/res/drawable/ic_qeust.xml" value="0.1115" />
         <entry key="app/src/main/res/drawable/military_tech-48px.xml" value="0.1115" />
         <entry key="app/src/main/res/drawable/military_tech.xml" value="0.2055" />
+        <entry key="app/src/main/res/drawable/person-48px.xml" value="0.1115" />
         <entry key="app/src/main/res/layout/activity_alarm.xml" value="0.19067028985507245" />
         <entry key="app/src/main/res/layout/activity_lock.xml" value="0.1" />
         <entry key="app/src/main/res/layout/activity_login.xml" value="0.19067028985507245" />
-        <entry key="app/src/main/res/layout/activity_main.xml" value="0.19532012939453117" />
+        <entry key="app/src/main/res/layout/activity_main.xml" value="0.1" />
         <entry key="app/src/main/res/layout/activity_main2.xml" value="0.19067028985507245" />
         <entry key="app/src/main/res/layout/activity_question.xml" value="0.1" />
         <entry key="app/src/main/res/layout/activity_question_choice.xml" value="0.182518115942029" />
         <entry key="app/src/main/res/layout/activity_question_play.xml" value="0.182518115942029" />
         <entry key="app/src/main/res/layout/activity_result.xml" value="0.10120849609374999" />
+        <entry key="app/src/main/res/layout/activity_singup.xml" value="0.1541473388671875" />
         <entry key="app/src/main/res/layout/activity_timer_list.xml" value="0.1" />
         <entry key="app/src/main/res/layout/content_main.xml" value="0.182518115942029" />
+        <entry key="app/src/main/res/layout/fragment_dashboard.xml" value="0.19067028985507245" />
         <entry key="app/src/main/res/layout/fragment_first.xml" value="0.182518115942029" />
+        <entry key="app/src/main/res/layout/fragment_home.xml" value="0.19067028985507245" />
         <entry key="app/src/main/res/layout/fragment_main.xml" value="0.16621376811594202" />
         <entry key="app/src/main/res/layout/fragment_notifications.xml" value="0.19067028985507245" />
         <entry key="app/src/main/res/layout/fragment_question.xml" value="0.16621376811594202" />
