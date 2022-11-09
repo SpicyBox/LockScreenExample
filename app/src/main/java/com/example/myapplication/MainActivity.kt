@@ -9,6 +9,7 @@ class MainActivity : AppCompatActivity() {
 
     private val mainFragment by lazy { MainFragment() }
     private val questionFragment by lazy { QuestionFragment() }
+    private val userInfoFragment by lazy { UserInfoFragment() }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -26,7 +27,7 @@ class MainActivity : AppCompatActivity() {
                         changeFragment(questionFragment)
                     }
                     R.id.info -> {
-                        changeFragment(mainFragment)
+                        changeFragment(userInfoFragment)
                     }
                     R.id.setting -> {
                         changeFragment(mainFragment)

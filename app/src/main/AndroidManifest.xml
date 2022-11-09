@@ -31,6 +31,7 @@
         <activity android:name=".ResultActivity" />
         <activity android:name=".MainActivity" />
         <activity android:name=".SingUpActivity"/>
+
         <activity
             android:name=".LoginActivity"
             android:exported="true" >

@@ -3,13 +3,10 @@ package com.example.myapplication
 import android.content.Intent
 import android.os.Bundle
 import android.os.CountDownTimer
-import android.util.Log
 import android.view.KeyEvent
 import android.view.KeyEvent.KEYCODE_ENTER
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
-import androidx.room.Room
-import com.example.myapplication.Model.User
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import java.util.*
