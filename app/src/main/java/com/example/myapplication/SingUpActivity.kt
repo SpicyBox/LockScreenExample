@@ -26,7 +26,6 @@ class SingUpActivity : AppCompatActivity() {
         val singUpBtn = findViewById<Button>(R.id.singUpBtn)
 
         val auth = FirebaseAuth.getInstance()
-        val user = Firebase.auth.currentUser
         val db = Firebase.firestore
 
         singUpBtn.setOnClickListener{
@@ -38,7 +37,7 @@ class SingUpActivity : AppCompatActivity() {
                         auth.signInWithEmailAndPassword(emailEditTxt.text.toString(),passwordEditTxt.text.toString())
                             .addOnCompleteListener { task ->
                                 if (task.isSuccessful) {
-                                    Log.d(TAG, "SingIn successfully!")
+                                    val user = Firebase.auth.currentUser
                                     user?.let {
                                         val userInfo = hashMapOf(
                                             "uid" to user.uid,
@@ -52,6 +51,7 @@ class SingUpActivity : AppCompatActivity() {
                                             .addOnSuccessListener { Log.d(TAG, "DocumentSnapshot successfully written!") }
                                             .addOnFailureListener { e -> Log.w(TAG, "오류남!!!", e) }
                                     }
+
                                 } else {
                                     Toast.makeText(this, "이메일 혹은 패스워드가 다릅니다", Toast.LENGTH_LONG).show()
                                 }
@@ -59,7 +59,6 @@ class SingUpActivity : AppCompatActivity() {
                                 AuthUI.getInstance()
                                     .signOut(this)
                                     .addOnCompleteListener {
-                                        Log.d(TAG, "SingOut successfully!")
                                     }
                             }
                         startActivity(Intent(this,LoginActivity::class.java))

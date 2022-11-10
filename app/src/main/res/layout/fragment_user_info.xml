@@ -11,6 +11,17 @@
         tools:layout_editor_absoluteX="1dp"
         tools:layout_editor_absoluteY="1dp">
 
+        <de.hdodenhof.circleimageview.CircleImageView
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/profileImg"
+            android:layout_marginTop="50dp"
+            android:layout_width="96dp"
+            android:layout_height="96dp"
+            android:src="@drawable/defult_profile"
+            android:layout_gravity="center"
+            app:civ_border_width="3dp"
+            app:civ_border_color="#FF000000"/>
+
         <TextView
             android:id="@+id/userNameTxt"
             android:layout_width="match_parent"
