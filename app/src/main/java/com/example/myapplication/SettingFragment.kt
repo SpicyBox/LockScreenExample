@@ -12,18 +12,20 @@ import com.bumptech.glide.Glide
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
+import com.google.firebase.storage.ktx.storage
 
-class UserInfoFragment : Fragment() {
+class SettingFragment : Fragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
 
-        var view = inflater.inflate(R.layout.fragment_user_info, container, false)
+        var view = inflater.inflate(R.layout.fragment_setting, container, false)
         val userEmailTxt = view.findViewById<TextView>(R.id.userEmailTxt)
         val userNameTxt = view.findViewById<TextView>(R.id.userNameTxt)
         val profileImg = view.findViewById<ImageView>(R.id.profileImg)
 
         val user = Firebase.auth.currentUser
         val db = Firebase.firestore
+        val storage = Firebase.storage
 
         user?.let {
                 db.collection("userInfo").document(user.uid)

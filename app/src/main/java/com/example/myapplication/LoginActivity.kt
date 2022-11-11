@@ -7,6 +7,8 @@ import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.ktx.Firebase
 
 class LoginActivity : AppCompatActivity() {
 
@@ -20,6 +22,10 @@ class LoginActivity : AppCompatActivity() {
         val singUpBtn = findViewById<Button>(R.id.singUpBtn)
 
         val auth = FirebaseAuth.getInstance()
+
+        if(Firebase.auth.currentUser != null){
+            startActivity(Intent(this,MainActivity::class.java))
+        }
 
         loginBtn.setOnClickListener{
 
