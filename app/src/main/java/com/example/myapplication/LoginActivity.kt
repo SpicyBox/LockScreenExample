@@ -44,6 +44,7 @@ class LoginActivity : AppCompatActivity() {
 
         singUpBtn.setOnClickListener {
             startActivity(Intent(this,SingUpActivity::class.java))
+            finish()
         }
     }
 }
