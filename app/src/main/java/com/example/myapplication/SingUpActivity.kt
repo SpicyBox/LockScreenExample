@@ -44,7 +44,6 @@ class SingUpActivity : AppCompatActivity() {
                                             "nickName" to nickName.text.toString(),
                                             "email" to emailEditTxt.text.toString(),
                                             "password" to passwordEditTxt.text.toString(),
-                                            "profileUrl" to "https://firebasestorage.googleapis.com/v0/b/englishcoach-7f95b.appspot.com/o/defult_profile.png?alt=media&token=ea83c03c-3656-4f81-a9ef-4f206a3daa08"
                                         )
                                         db.collection("userInfo").document(user.uid)
                                             .set(userInfo)

@@ -8,6 +8,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
+
         tools:layout_editor_absoluteX="1dp"
         tools:layout_editor_absoluteY="1dp">
 
@@ -37,5 +38,21 @@
             android:text="이메일"
             android:textAlignment="center"
             android:textSize="34sp" />
+
+        <Switch
+            android:id="@+id/lockScreenSwitch2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="잠금화면 설정"
+            android:layout_gravity="center"
+            android:switchPadding="30dp"
+            tools:ignore="TouchTargetSizeCheck" />
+
+        <Button
+            android:id="@+id/logOutBtn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="로그아웃" />
+
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -27,20 +27,10 @@ class MainFragment : Fragment() {
         val questionBtn = view.findViewById<Button>(R.id.questionBtn)
         val alarmBtn = view.findViewById<Button>(R.id.alarmBtn)
         val lockScreenSwitch = view.findViewById<Switch>(R.id.lockScreenSwitch)
-        val db = Firebase.firestore
         val user = Firebase.auth.currentUser
 
         user?.let {
             for (profile in it.providerData) {
-                // Id of the provider (ex: google.com)
-                val providerId = profile.providerId
-
-                // UID specific to the provider
-                val uid = profile.uid
-
-                // Name, email address, and profile photo Url
-                val name = profile.displayName
-                val email = profile.email
                 val photoUrl = profile.photoUrl
                 if(photoUrl == null){
                     val profileUpdates = userProfileChangeRequest {
