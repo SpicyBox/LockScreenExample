@@ -1,12 +1,16 @@
 package com.example.myapplication
 
+import android.content.ContentValues.TAG
 import android.content.Intent
 import android.os.Bundle
 import android.os.CountDownTimer
+import android.util.Log
 import android.view.KeyEvent
 import android.view.KeyEvent.KEYCODE_ENTER
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.firestore.SetOptions
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import java.util.*
@@ -18,6 +22,7 @@ class QuestionPlayActivity:AppCompatActivity() {
         setContentView(R.layout.activity_question_play)
 
         val wordDb = Firebase.firestore
+        val user = Firebase.auth.currentUser
 
         val qeustionText = findViewById<TextView>(R.id.qeustionText)
         val timerTxt = findViewById<TextView>(R.id.timeTxt)
@@ -26,59 +31,63 @@ class QuestionPlayActivity:AppCompatActivity() {
         val answerEnterEditText = findViewById<EditText>(R.id.answerEnterEditText)
         val scoreCountTxt = findViewById<TextView>(R.id.scoreCountTxt)
 
-        wordDb.collection("EnglishWordList").document("EnglishWordList")
-            .get()
-            .addOnSuccessListener { document->
-                if (document != null) {
-                    //Toast.makeText(this, "${document.data}", Toast.LENGTH_SHORT).show()
+        val qeutionType = intent.getStringExtra("qeutionType")
+        var questionList = listOf("0")
+        var answerList = listOf("0")
+        val db = Firebase.firestore
 
-                } else {
-                    Toast.makeText(this, "실패2", Toast.LENGTH_SHORT).show()
-               }
-            }
-            .addOnFailureListener { exception ->
-                Toast.makeText(this, "불러오기 실패", Toast.LENGTH_SHORT).show()
-            }
+        if(qeutionType.equals("englishWord")){
+            questionList = listOf("Cat", "Dog", "Book", "Bus", "Phone", "Mail", "Key", "Cap", "Chair", "Table","Cat","Time")//문제 리스트 임시
+            answerList = listOf("cat", "dog", "book", "bus", "phone", "mail", "key", "cap", "chair", "table","cat","time") //정답 리스트(한글 안됨)
+        } else if(qeutionType.equals("englishMean")){
+            questionList = listOf("cat", "dog", "book", "bus", "phone", "mail", "key", "cap", "chair", "table","cat","time")//문제 리스트 임시
+            answerList = listOf("Cat", "Dog", "Book", "Bus", "Phone", "Mail", "Key", "Cap", "Chair", "Table","Cat","Time") //정답 리스트(한글 안됨)
+        } else {
+            questionList = listOf("cat", "dog", "book", "bus", "phone", "mail", "key", "cap", "chair", "table","cat","time")//문제 리스트 임시
+            answerList = listOf("Cat", "Dog", "Book", "Bus", "Phone", "Mail", "Key", "Cap", "Chair", "Table","Cat","Time") //정답 리스트(한글 안됨)
+        }
 
-        var questionList = listOf("Cat", "Dog", "Book", "Bus", "Phone", "Mail", "Key", "Cap", "Chair", "Table","Cat","Time")//문제 리스트 임시
-        var answerList = listOf("cat", "dog", "book", "bus", "phone", "mail", "key", "cap", "chair", "table","cat","time") //정답 리스트(한글 안됨)
         var num = Random().nextInt(9)
         var scoreCount = 0
+        var wrongAnswer = 0
 
         qeustionText.text = questionList[num]
 
         fun startQuestionPlayActivity(): Unit {
-            startActivity(Intent(this,ResultActivity::class.java).putExtra("scoreCount", scoreCount))
+            startActivity(
+                Intent(this,ResultActivity::class.java)
+                .putExtra("scoreCount", scoreCount)
+                .putExtra("wrongAnswer", wrongAnswer)
+            )
             finish()
+        }
+
+        fun playQuestion(answer: List<String>, question: List<String>){
+            Log.e(TAG, "실행")
+            if (answerEnterEditText.text.toString() == answer[num]){
+                Toast.makeText(this, "정답입니다.", Toast.LENGTH_SHORT).show()
+                scoreCount++
+                scoreCountTxt.text = scoreCount.toString() + "점"
+                num = Random().nextInt(9)
+                qeustionText.text = question[num]
+            } else {
+                Toast.makeText(this, "오답입니다.", Toast.LENGTH_SHORT).show()
+                wrongAnswer++
+                num = Random().nextInt(9)
+                qeustionText.text = question[num]
+            }
+            answerEnterEditText.text.clear()
         }
 
         answerEnterEditText.setOnKeyListener{ v, keyCode, event ->
             if (event.action == KeyEvent.ACTION_DOWN && keyCode == KEYCODE_ENTER) {
-                if (answerEnterEditText.text.toString() == answerList[num]){
-                    Toast.makeText(this, "정답입니다.", Toast.LENGTH_SHORT).show()
-                    scoreCount++
-                    scoreCountTxt.text = scoreCount.toString() + "점"
-                    num = Random().nextInt(9)
-                    qeustionText.text = questionList[num]
-                    answerEnterEditText.text.clear()
-                } else {
-                    Toast.makeText(this, "오답입니다.", Toast.LENGTH_SHORT).show()
-                    answerEnterEditText.text.clear()
-                }
+                playQuestion(answerList, questionList)
             }
             true
         }
 
         resultEnterBtn.setOnClickListener{
-            if (answerEnterEditText.text.toString() == answerList[num]){
-                Toast.makeText(this, "정답입니다.", Toast.LENGTH_SHORT).show()
-                scoreCount++
-                scoreCountTxt.text = scoreCount.toString() + "점"
-                num = Random().nextInt(9)
-                qeustionText.text = questionList[num]
-            } else {
-                Toast.makeText(this, "오답입니다.", Toast.LENGTH_SHORT).show()
-            }
+            playQuestion(answerList, questionList)
         }
 
         object : CountDownTimer(1000 * 60, 1000) {
@@ -90,7 +99,22 @@ class QuestionPlayActivity:AppCompatActivity() {
 
             override fun onFinish() {
                 // 타이머가 종료되면 호출
-                startQuestionPlayActivity()
+                user?.let {
+                    val userInfo = hashMapOf(
+                        qeutionType to scoreCount
+                    )
+                    db.collection("userInfo").document(user.uid)
+                        .set(userInfo, SetOptions.merge())
+                        .addOnSuccessListener {
+                            Log.d(
+                                TAG,
+                                "DocumentSnapshot successfully written!"
+                            )
+                        }
+                        .addOnFailureListener { e -> Log.w(TAG, "오류남!!!", e) }
+
+                    startQuestionPlayActivity()
+                }
             }
         }.start()
     }

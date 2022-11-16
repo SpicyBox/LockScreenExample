@@ -43,24 +43,25 @@ class SingUpActivity : AppCompatActivity() {
                                             "uid" to user.uid,
                                             "nickName" to nickName.text.toString(),
                                             "email" to emailEditTxt.text.toString(),
-                                            "password" to passwordEditTxt.text.toString(),
+                                            "password" to passwordEditTxt.text.toString()
                                         )
                                         db.collection("userInfo").document(user.uid)
                                             .set(userInfo)
                                             .addOnSuccessListener { Log.d(TAG, "DocumentSnapshot successfully written!") }
                                             .addOnFailureListener { e -> Log.w(TAG, "오류남!!!", e) }
+
+                                        Toast.makeText(this, "회원가입 성공", Toast.LENGTH_LONG).show()
+                                        AuthUI.getInstance()
+                                            .signOut(this)
+                                            .addOnCompleteListener {
+                                                startActivity(Intent(this,LoginActivity::class.java))
+                                            }
                                     }
 
                                 } else {
-                                    Toast.makeText(this, "이메일 혹은 패스워드가 다릅니다", Toast.LENGTH_LONG).show()
+                                    Log.e(TAG, "에러남!")
                                 }
-                                Toast.makeText(this, "회원가입 성공", Toast.LENGTH_LONG).show()
-                                AuthUI.getInstance()
-                                    .signOut(this)
-                                    .addOnCompleteListener {
-                                    }
                             }
-                        startActivity(Intent(this,LoginActivity::class.java))
                     }
                     else if (task.exception?.message.isNullOrEmpty()==false){
                         Toast.makeText(this,task.exception?.message,Toast.LENGTH_LONG).show()

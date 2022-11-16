@@ -5,6 +5,7 @@ import android.widget.Button
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.app.ActivityCompat
 import java.util.*
 
 class LockActivity : AppCompatActivity(){
@@ -36,7 +37,7 @@ class LockActivity : AppCompatActivity(){
 
         choice1Btn.setOnClickListener{
             Toast.makeText(this, "정답입니다.", Toast.LENGTH_SHORT).show()
-            finish()
+            System.exit(0)
         }
 
         choice2Btn.setOnClickListener{

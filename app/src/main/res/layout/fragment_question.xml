@@ -4,13 +4,12 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:gravity="center"
-    android:layout_marginTop="100dp"
     android:orientation="vertical">
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="80dp"
+        android:layout_margin="50dp"
         android:text="문제"
         android:textSize="35dp" />
 
@@ -18,39 +17,124 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content">
 
-        <Button
-            android:id="@+id/englishWordBtn"
-            android:layout_width="150dp"
-            android:layout_height="200dp"
-            android:layout_marginRight="35dp"
-            android:text="단어 맞추기" />
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="의미 맞추기" />
+
+        <TextView
+            android:id="@+id/textView3"
+            android:layout_width="200dp"
+            android:layout_height="match_parent"
+            android:layout_margin="15dp"
+            android:layout_weight="1"
+            android:text="나오는 영단어를 보고, 의미를 적는 게임입니다. 1분의 제한시간 동안 최대한 많은 문제를 맞춰보세요!"
+            android:textAlignment="textStart" />
 
         <Button
-            android:id="@+id/toeicBtn"
-            android:layout_width="150dp"
-            android:layout_height="200dp"
-            android:text="토익 문제" />
+            android:id="@+id/englishWordBtn"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="시작하기!" />
 
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:orientation="horizontal">
 
         <TextView
             android:id="@+id/wordMaxScoreTxt"
-            android:layout_width="150dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="35dp"
-            android:layout_marginRight="35dp"
             android:text="최고점수" />
 
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
         <TextView
-            android:id="@+id/toeicMaxScore"
-            android:layout_width="143dp"
-            android:layout_height="wrap_content"
+            android:id="@+id/textView4"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
             android:layout_weight="1"
+            android:gravity="center"
+            android:text="영단어 맞추기" />
+
+        <TextView
+            android:id="@+id/textView5"
+            android:layout_width="200dp"
+            android:layout_height="match_parent"
+            android:layout_margin="15dp"
+            android:layout_weight="1"
+            android:text="나오는 단어를 보고, 영단어를 적는 게임입니다. 1분의 제한시간 동안 최대한 많은 문제를 맞춰보세요!"
+            android:textAlignment="textStart" />
+
+        <Button
+            android:id="@+id/englishMeanBtn"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="시작하기" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/MeanMaxScoreTxt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="최고점수" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/textView6"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="빈칸 맞추기" />
+
+        <TextView
+            android:id="@+id/textView7"
+            android:layout_width="200dp"
+            android:layout_height="match_parent"
+            android:layout_margin="15dp"
+            android:layout_weight="1"
+            android:text="나오는 단어를 보고, 빈칸에 들어갈 알파벳을 적는 게임입니다. 1분의 제한시간 동안 최대한 많은 문제를 맞춰보세요!"
+            android:textAlignment="textStart" />
+
+        <Button
+            android:id="@+id/englishAlpabetBtn"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="시작하기" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/alpbetMaxScoreTxt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:text="최고점수" />
 
     </LinearLayout>

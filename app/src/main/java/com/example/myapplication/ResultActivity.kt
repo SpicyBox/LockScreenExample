@@ -21,20 +21,22 @@ class ResultActivity:AppCompatActivity() {
         ).build()
 
         val score = intent.getIntExtra("scoreCount", 0)
+        val wrongAnswer = intent.getIntExtra("wrongAnswer", 0)
+        val allAnswer = score + wrongAnswer
 
         val reStartBtn = findViewById<Button>(R.id.reStartBtn)
         val backBtn = findViewById<Button>(R.id.backBtn)
         val resultTxt = findViewById<TextView>(R.id.resultTxt)
         val titleTxt = findViewById<TextView>(R.id.titleTxt)
 
-        resultTxt.text = score.toString() + " 점"
+        resultTxt.text = score.toString() + "/" + allAnswer.toString()
 
         val r = Runnable {
             val userDAO = db.userDao()
             val userScore: List<User> = userDAO.getAll()
             if (userScore[0].highScore!! < score) {
                 titleTxt.text = "최고 기록 갱신!"
-                val updateSocre = userDAO.updateHighScore(User(0, score))
+                val updateSocre = userDAO.updateHighScore(User(0, score, true))
             }
         }
 
@@ -42,11 +44,11 @@ class ResultActivity:AppCompatActivity() {
         thread.start()
 
         reStartBtn.setOnClickListener{
-            startActivity(Intent(this,QuestionPlayActivity::class.java))
+            startActivity(Intent(this, QuestionPlayActivity::class.java))
         }
 
         backBtn.setOnClickListener{
-            startActivity(Intent(this, QuestionFragment::class.java))
+            startActivity(Intent(this, MainActivity::class.java))
         }
     }
 }

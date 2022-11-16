@@ -103,14 +103,22 @@ class SettingFragment : Fragment() {
                 .setMessage("로그아웃하시겠습니까?")
                 .setPositiveButton("네",
                     DialogInterface.OnClickListener { dialog, id ->
-                                val logoutDialog = AlertDialog.Builder(activity)
-                                logoutDialog
-                                    .setTitle("로그아웃")
-                                    .setMessage("로그아웃되었습니다.")
-                                logoutDialog.create()
-                                logoutDialog.show()
-
-                                startActivity(Intent(activity, LoginActivity::class.java))
+                        activity?.let { it1 ->
+                            AuthUI.getInstance()
+                                .signOut(it1)
+                                .addOnCompleteListener {
+                                    val logoutDialog = AlertDialog.Builder(activity)
+                                    logoutDialog
+                                        .setTitle("로그아웃")
+                                        .setMessage("로그아웃되었습니다.")
+                                        .setPositiveButton("확인",
+                                            DialogInterface.OnClickListener { dialog, id ->
+                                                startActivity(Intent(activity, LoginActivity::class.java))
+                                            })
+                                    logoutDialog.create()
+                                    logoutDialog.show()
+                                }
+                        }
                     })
                 .setNegativeButton("아니오",
                     DialogInterface.OnClickListener { dialog, id ->
