@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="time_array">
+        <item>20초</item>
+        <item>30초</item>
+        <item>40초</item>
+        <item>50초</item>
+        <item>60초</item>
+        <item>제한없음</item>
+    </string-array>
+</resources>

@@ -21,8 +21,8 @@ class QuestionPlayActivity:AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_question_play)
 
-        val wordDb = Firebase.firestore
         val user = Firebase.auth.currentUser
+        val db = Firebase.firestore
 
         val qeustionText = findViewById<TextView>(R.id.qeustionText)
         val timerTxt = findViewById<TextView>(R.id.timeTxt)
@@ -34,7 +34,6 @@ class QuestionPlayActivity:AppCompatActivity() {
         val qeutionType = intent.getStringExtra("qeutionType")
         var questionList = listOf("0")
         var answerList = listOf("0")
-        val db = Firebase.firestore
 
         if(qeutionType.equals("englishWord")){
             questionList = listOf("Cat", "Dog", "Book", "Bus", "Phone", "Mail", "Key", "Cap", "Chair", "Table","Cat","Time")//문제 리스트 임시
@@ -53,11 +52,12 @@ class QuestionPlayActivity:AppCompatActivity() {
 
         qeustionText.text = questionList[num]
 
-        fun startQuestionPlayActivity(): Unit {
+        fun startResultActivity(): Unit {
             startActivity(
                 Intent(this,ResultActivity::class.java)
-                .putExtra("scoreCount", scoreCount)
-                .putExtra("wrongAnswer", wrongAnswer)
+                    .putExtra("scoreCount", scoreCount)
+                    .putExtra("wrongAnswer", wrongAnswer)
+                    .putExtra("qeutionType", qeutionType)
             )
             finish()
         }
@@ -113,7 +113,7 @@ class QuestionPlayActivity:AppCompatActivity() {
                         }
                         .addOnFailureListener { e -> Log.w(TAG, "오류남!!!", e) }
 
-                    startQuestionPlayActivity()
+                    startResultActivity()
                 }
             }
         }.start()

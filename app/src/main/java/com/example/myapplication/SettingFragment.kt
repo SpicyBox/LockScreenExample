@@ -5,19 +5,21 @@ import android.app.AlertDialog
 import android.content.ContentValues.TAG
 import android.content.DialogInterface
 import android.content.Intent
+import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
-import android.widget.ImageView
-import android.widget.TextView
-import android.widget.Toast
+import android.widget.*
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
+import androidx.room.Room
 import com.bumptech.glide.Glide
+import com.example.myapplication.Model.User
 import com.firebase.ui.auth.AuthUI
+import com.firebase.ui.auth.AuthUI.getApplicationContext
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
@@ -29,6 +31,14 @@ class SettingFragment : Fragment() {
     val db = Firebase.firestore
     val storage = Firebase.storage
     val storageRef = storage.reference
+
+    var localDb = activity?.let {
+        Room.databaseBuilder(
+            it.getApplicationContext(),
+            UserDatabase::class.java,
+            "userDB"
+        ).build()
+    }
 
     private val permissionList = arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE)
     private val checkPermission = registerForActivityResult(ActivityResultContracts.RequestMultiplePermissions()) { result ->
@@ -54,6 +64,7 @@ class SettingFragment : Fragment() {
         }
     }
 
+    @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
 
         var view = inflater.inflate(R.layout.fragment_setting, container, false)
@@ -61,6 +72,20 @@ class SettingFragment : Fragment() {
         val userNameTxt = view.findViewById<TextView>(R.id.userNameTxt)
         val profileImg = view.findViewById<ImageView>(R.id.profileImg)
         val logOutBtn = view.findViewById<Button>(R.id.logOutBtn)
+        val setLockScreenPscSpiner = view.findViewById<Spinner>(R.id.setLockScreenPscSpiner)
+        val setLockScreenTimeSpnier = view.findViewById<Spinner>(R.id.setLockScreenTimeSpnier)
+        val setOptionBtn = view.findViewById<Button>(R.id.setOptionBtn)
+        val lockScreenSwitch2 = view.findViewById<Switch>(R.id.lockScreenSwitch2)
+
+        val questionType:String
+        val setTime:Int
+        val setPsc:Int
+
+        setLockScreenPscSpiner.adapter =
+            activity?.let { ArrayAdapter.createFromResource(it, R.array.question_array, android.R.layout.simple_spinner_item) }
+
+        setLockScreenTimeSpnier.adapter =
+            activity?.let { ArrayAdapter.createFromResource(it, R.array.time_array, android.R.layout.simple_spinner_item) }
 
         val defaultImageUrl = "https://firebasestorage.googleapis.com/v0/b/englishcoach-7f95b.appspot.com/o/defult_profile.png?alt=media&token=ea83c03c-3656-4f81-a9ef-4f206a3daa08"
 
@@ -96,38 +121,65 @@ class SettingFragment : Fragment() {
             seletProfile.launch("image/*")
         }
 
+        setOptionBtn.setOnClickListener {
+            setOption(1,1,1)
+        }
+
+        lockScreenSwitch2.setOnCheckedChangeListener{ _, isChecked ->
+            if(isChecked){
+                getActivity()?.startForegroundService(Intent(getActivity(), LockScreenService::class.java))
+            } else {
+                getActivity()?.stopService(Intent(getActivity(), LockScreenService::class.java))
+            }
+        }
+
         logOutBtn.setOnClickListener {
-            val builder = AlertDialog.Builder(activity)
-            builder
-                .setTitle("로그아웃")
-                .setMessage("로그아웃하시겠습니까?")
-                .setPositiveButton("네",
-                    DialogInterface.OnClickListener { dialog, id ->
-                        activity?.let { it1 ->
-                            AuthUI.getInstance()
-                                .signOut(it1)
-                                .addOnCompleteListener {
-                                    val logoutDialog = AlertDialog.Builder(activity)
-                                    logoutDialog
-                                        .setTitle("로그아웃")
-                                        .setMessage("로그아웃되었습니다.")
-                                        .setPositiveButton("확인",
-                                            DialogInterface.OnClickListener { dialog, id ->
-                                                startActivity(Intent(activity, LoginActivity::class.java))
-                                            })
-                                    logoutDialog.create()
-                                    logoutDialog.show()
-                                }
-                        }
-                    })
-                .setNegativeButton("아니오",
-                    DialogInterface.OnClickListener { dialog, id ->
-                        // Cancel 버튼 선택 시 수행
-                    })
-            builder.create()
-            builder.show()
+            logout()
         }
 
         return view
+    }
+
+    fun setOption(quetionType: Int, setTime: Int, setPsc: Int){
+        val r = Runnable {
+            val userDAO = localDb?.userDao()
+            val userScore: List<User>? = userDAO?.getAll()
+            val updateSocre = userDAO?.updateHighScore(User(0, 2, true))
+        }
+
+        val thread = Thread(r)
+        thread.start()
+    }
+
+    fun logout(){
+        val builder = AlertDialog.Builder(activity)
+        builder
+            .setTitle("로그아웃")
+            .setMessage("로그아웃하시겠습니까?")
+            .setPositiveButton("네",
+                DialogInterface.OnClickListener { dialog, id ->
+                    activity?.let { it1 ->
+                        AuthUI.getInstance()
+                            .signOut(it1)
+                            .addOnCompleteListener {
+                                val logoutDialog = AlertDialog.Builder(activity)
+                                logoutDialog
+                                    .setTitle("로그아웃")
+                                    .setMessage("로그아웃되었습니다.")
+                                    .setPositiveButton("확인",
+                                        DialogInterface.OnClickListener { dialog, id ->
+                                            startActivity(Intent(activity, LoginActivity::class.java))
+                                        })
+                                logoutDialog.create()
+                                logoutDialog.show()
+                            }
+                    }
+                })
+            .setNegativeButton("아니오",
+                DialogInterface.OnClickListener { dialog, id ->
+                    // Cancel 버튼 선택 시 수행
+                })
+        builder.create()
+        builder.show()
     }
 }

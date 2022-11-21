@@ -9,5 +9,4 @@ data class User(
     @PrimaryKey val id : Int?,
     @ColumnInfo val highScore: Int?,
     @ColumnInfo val englishWord: Boolean?,
-
 )
