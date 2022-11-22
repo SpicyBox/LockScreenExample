@@ -38,18 +38,6 @@ class ResultActivity:AppCompatActivity() {
 
         resultTxt.text = score.toString() + "/" + allAnswer.toString()
 
-        val r = Runnable {
-            val userDAO = db.userDao()
-            val userScore: List<User> = userDAO.getAll()
-            if (userScore[0].highScore!! < score) {
-                titleTxt.text = "최고 기록 갱신!"
-                val updateSocre = userDAO.updateHighScore(User(0, score, true))
-            }
-        }
-
-        val thread = Thread(r)
-        thread.start()
-
         reStartBtn.setOnClickListener{
             startActivity(Intent(this, QuestionPlayActivity::class.java))
         }

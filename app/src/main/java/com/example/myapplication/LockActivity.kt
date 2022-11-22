@@ -1,11 +1,16 @@
 package com.example.myapplication
 
+import android.content.ContentValues
 import android.os.Bundle
+import android.os.CountDownTimer
+import android.util.Log
 import android.widget.Button
+import android.widget.ProgressBar
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
+import com.google.firebase.firestore.SetOptions
 import java.util.*
 
 class LockActivity : AppCompatActivity(){
@@ -19,37 +24,74 @@ class LockActivity : AppCompatActivity(){
         val choice2Btn = findViewById<Button>(R.id.choice2Btn)
         val choice3Btn = findViewById<Button>(R.id.choice3Btn)
         val choice4Btn = findViewById<Button>(R.id.choice4Btn)
+        val lockTimeTxt = findViewById<TextView>(R.id.lockTimeTxt)
+        val lockTimeProgressBar = findViewById<ProgressBar>(R.id.lockTimeProgressBar)
 
-        var questionList = listOf("Cat", "Dog", "Book", "Bus", "Phone", "Mail", "Key", "Cap", "Chair", "Table")
-        var answerList = listOf("고양이", "개", "책", "버스", "핸드폰", "우편", "열쇠", "모자", "의자", "책상")
-        var buttonList = mutableSetOf<Int>()
+        val questionList = listOf("Cat", "Dog", "Book", "Bus", "Phone", "Mail", "Key", "Cap", "Chair", "Table")
+        val answerList = listOf("고양이", "개", "책", "버스", "핸드폰", "우편", "열쇠", "모자", "의자", "책상")
+        var buttonList = mutableListOf<Int>()
+        var questionNum = 0
+        var repeatNum = 1
 
-        while (buttonList.size < 4){
-            var num = Random().nextInt(9)
-            buttonList.add(num)
+        fun setQuestion(){
+            var buttonSet = mutableSetOf<Int>()
+            while (buttonSet.size < 4){
+                var num = Random().nextInt(9)
+                buttonSet.add(num)
+            }
+
+            buttonList = buttonSet.toMutableList()
+            questionNum = buttonList[Random().nextInt(3)]
+
+            multipleChoiceTxt.text = questionList[questionNum].toString()
+            choice1Btn.text = answerList[buttonList[0]].toString()
+            choice2Btn.text = answerList[buttonList[1]].toString()
+            choice3Btn.text = answerList[buttonList[2]].toString()
+            choice4Btn.text = answerList[buttonList[3]].toString()
         }
 
-        multipleChoiceTxt.text = questionList[0].toString()
-        choice1Btn.text = "고양이"
-        choice2Btn.text = "개"
-        choice3Btn.text = "나비"
-        choice4Btn.text = "사과"
+        fun checkAnswer(questionNum: Int, answer: Int){
+            if(questionNum == answer){
+                Toast.makeText(this, "정답입니다.", Toast.LENGTH_SHORT).show()
+                if(repeatNum < 3) {
+                    setQuestion()
+                    repeatNum++
+                } else {
+                    ActivityCompat.finishAffinity(this)
+                }
+            } else{
+                Toast.makeText(this, "오답입니다.", Toast.LENGTH_SHORT).show()
+            }
+        }
+
+        setQuestion()
 
         choice1Btn.setOnClickListener{
-            Toast.makeText(this, "정답입니다.", Toast.LENGTH_SHORT).show()
-            ActivityCompat.finishAffinity(this)
+            checkAnswer(buttonList[0], questionNum)
         }
 
         choice2Btn.setOnClickListener{
-            Toast.makeText(this, "오답입니다.", Toast.LENGTH_SHORT).show()
+            checkAnswer(buttonList[1], questionNum)
         }
 
         choice3Btn.setOnClickListener{
-            Toast.makeText(this, "오답입니다.", Toast.LENGTH_SHORT).show()
+            checkAnswer(buttonList[2], questionNum)
         }
 
         choice4Btn.setOnClickListener{
-            Toast.makeText(this, "오답입니다.", Toast.LENGTH_SHORT).show()
+            checkAnswer(buttonList[3], questionNum)
         }
+
+        object : CountDownTimer(1000 * 60, 1000) {
+            override fun onTick(p0: Long) {
+                // countDownInterval 마다 호출 (여기선 1000ms)
+                lockTimeTxt.text = (p0 / 1000).toString()
+                lockTimeProgressBar.setProgress(p0.toInt())
+            }
+
+            override fun onFinish() {
+                // 타이머가 종료되면 호출
+            }
+        }.start()
     }
 }

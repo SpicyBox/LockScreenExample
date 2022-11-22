@@ -7,6 +7,7 @@ import androidx.room.PrimaryKey
 @Entity
 data class User(
     @PrimaryKey val id : Int?,
-    @ColumnInfo val highScore: Int?,
-    @ColumnInfo val englishWord: Boolean?,
+    @ColumnInfo val questionType: Int?,
+    @ColumnInfo val repeatNum: Int?,
+    @ColumnInfo val limitTime: Int?
 )

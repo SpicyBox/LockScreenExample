@@ -1,9 +1,6 @@
 package com.example.myapplication.DAO
 
-import androidx.room.Dao
-import androidx.room.Insert
-import androidx.room.Query
-import androidx.room.Update
+import androidx.room.*
 import com.example.myapplication.Model.User
 
 @Dao
@@ -20,3 +17,4 @@ interface UserDAO {
     @Query("DELETE FROM User")
     fun deleteAll()
 }
+

@@ -1,6 +1,7 @@
 package com.example.myapplication
 
 import android.Manifest
+import android.annotation.SuppressLint
 import android.app.AlertDialog
 import android.content.ContentValues.TAG
 import android.content.DialogInterface
@@ -15,11 +16,9 @@ import android.widget.*
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
-import androidx.room.Room
 import com.bumptech.glide.Glide
 import com.example.myapplication.Model.User
 import com.firebase.ui.auth.AuthUI
-import com.firebase.ui.auth.AuthUI.getApplicationContext
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
@@ -27,18 +26,11 @@ import com.google.firebase.storage.ktx.storage
 
 class SettingFragment : Fragment() {
 
+    val userDb = activity?.let { UserDatabase.getDatabase(it) }
     val user = Firebase.auth.currentUser
     val db = Firebase.firestore
     val storage = Firebase.storage
     val storageRef = storage.reference
-
-    var localDb = activity?.let {
-        Room.databaseBuilder(
-            it.getApplicationContext(),
-            UserDatabase::class.java,
-            "userDB"
-        ).build()
-    }
 
     private val permissionList = arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE)
     private val checkPermission = registerForActivityResult(ActivityResultContracts.RequestMultiplePermissions()) { result ->
@@ -77,9 +69,20 @@ class SettingFragment : Fragment() {
         val setOptionBtn = view.findViewById<Button>(R.id.setOptionBtn)
         val lockScreenSwitch2 = view.findViewById<Switch>(R.id.lockScreenSwitch2)
 
-        val questionType:String
+        val questionType:Int
         val setTime:Int
         val setPsc:Int
+
+        val r = Runnable {
+            var optionList = userDb?.userDao()?.getAll()
+            Log.d(TAG, optionList?.get(0)?.questionType.toString())
+        }
+
+        val thread = Thread(r)
+
+        if(thread.getState() == Thread.State.NEW) {
+            thread.start()
+        }
 
         setLockScreenPscSpiner.adapter =
             activity?.let { ArrayAdapter.createFromResource(it, R.array.question_array, android.R.layout.simple_spinner_item) }
@@ -127,9 +130,9 @@ class SettingFragment : Fragment() {
 
         lockScreenSwitch2.setOnCheckedChangeListener{ _, isChecked ->
             if(isChecked){
-                getActivity()?.startForegroundService(Intent(getActivity(), LockScreenService::class.java))
+                activity?.startForegroundService(Intent(activity, LockScreenService::class.java))
             } else {
-                getActivity()?.stopService(Intent(getActivity(), LockScreenService::class.java))
+                activity?.stopService(Intent(activity, LockScreenService::class.java))
             }
         }
 
@@ -140,11 +143,11 @@ class SettingFragment : Fragment() {
         return view
     }
 
-    fun setOption(quetionType: Int, setTime: Int, setPsc: Int){
+    fun setOption(questionType: Int, setrepeatNum: Int, setLimitTime: Int){
         val r = Runnable {
-            val userDAO = localDb?.userDao()
-            val userScore: List<User>? = userDAO?.getAll()
-            val updateSocre = userDAO?.updateHighScore(User(0, 2, true))
+            val updateOption = userDb?.userDao()?.updateHighScore(User(0, questionType, setrepeatNum, setLimitTime))
+            updateOption
+            Log.d(TAG, "업로드 작동")
         }
 
         val thread = Thread(r)

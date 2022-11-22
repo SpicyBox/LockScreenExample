@@ -55,4 +55,21 @@
             android:text="Button" />
     </LinearLayout>
 
+    <TextView
+        android:id="@+id/lockTimeTxt"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="남은 시간"
+        android:textAlignment="center"
+        android:textSize="20sp" />
+
+    <ProgressBar
+        android:id="@+id/lockTimeProgressBar"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:layout_marginHorizontal="30dp"
+        android:max="60000" />
+
+
 </LinearLayout>
