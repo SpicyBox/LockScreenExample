@@ -39,29 +39,30 @@
             android:textSize="34sp" />
 
         <RadioGroup
+            android:id="@+id/setQuestionTypeGroup"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center_horizontal"
             android:orientation="horizontal">
 
             <RadioButton
-                android:id="@+id/radioButton"
+                android:id="@+id/lifeTypeRadioBtn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="생활영어단어" />
 
             <RadioButton
-                android:id="@+id/radioButton2"
+                android:id="@+id/toeicTypeRadioBtn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="30dp"
                 android:text="토익단어" />
 
             <RadioButton
-                android:id="@+id/radioButton3"
+                android:id="@+id/journalTypeRadioBtn"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
 
+                android:layout_height="wrap_content"
                 android:text="학술단어" />
 
         </RadioGroup>

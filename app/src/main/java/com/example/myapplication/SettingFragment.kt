@@ -1,7 +1,6 @@
 package com.example.myapplication
 
 import android.Manifest
-import android.annotation.SuppressLint
 import android.app.AlertDialog
 import android.content.ContentValues.TAG
 import android.content.DialogInterface
@@ -31,6 +30,10 @@ class SettingFragment : Fragment() {
     val db = Firebase.firestore
     val storage = Firebase.storage
     val storageRef = storage.reference
+
+    var questionType = 0
+    var setTime = 20
+    var setPsc = 1
 
     private val permissionList = arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE)
     private val checkPermission = registerForActivityResult(ActivityResultContracts.RequestMultiplePermissions()) { result ->
@@ -68,10 +71,7 @@ class SettingFragment : Fragment() {
         val setLockScreenTimeSpnier = view.findViewById<Spinner>(R.id.setLockScreenTimeSpnier)
         val setOptionBtn = view.findViewById<Button>(R.id.setOptionBtn)
         val lockScreenSwitch2 = view.findViewById<Switch>(R.id.lockScreenSwitch2)
-
-        val questionType:Int
-        val setTime:Int
-        val setPsc:Int
+        val setQuestionTypeGroup = view.findViewById<RadioGroup>(R.id.setQuestionTypeGroup)
 
         val r = Runnable {
             var optionList = userDb?.userDao()?.getAll()
@@ -124,8 +124,49 @@ class SettingFragment : Fragment() {
             seletProfile.launch("image/*")
         }
 
+        setQuestionTypeGroup.setOnCheckedChangeListener{group, checkedId->
+            when(checkedId){
+                R.id.lifeTypeRadioBtn -> questionType = 0
+                R.id.toeicTypeRadioBtn -> questionType = 1
+                R.id.journalTypeRadioBtn -> questionType = 2
+            }
+        }
+
+        setLockScreenPscSpiner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener{
+            override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long){
+                when(position){
+                    0 -> setPsc = 1
+                    1 -> setPsc = 2
+                    2 -> setPsc = 3
+                    3 -> setPsc = 4
+                    4 -> setPsc = 5
+                }
+            }
+
+            override fun onNothingSelected(p0: AdapterView<*>?) {
+                TODO("Not yet implemented")
+            }
+        }
+
+        setLockScreenTimeSpnier.onItemSelectedListener = object : AdapterView.OnItemSelectedListener{
+            override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long){
+                when(position){
+                    0 -> setTime = 20
+                    1 -> setTime = 30
+                    2 -> setTime = 40
+                    3 -> setTime = 50
+                    4 -> setTime = 60
+                    5 -> setTime = 70
+                }
+            }
+
+            override fun onNothingSelected(p0: AdapterView<*>?) {
+                TODO("Not yet implemented")
+            }
+        }
+
         setOptionBtn.setOnClickListener {
-            setOption(1,1,1)
+            setOption(questionType,setPsc,setTime)
         }
 
         lockScreenSwitch2.setOnCheckedChangeListener{ _, isChecked ->
@@ -144,10 +185,11 @@ class SettingFragment : Fragment() {
     }
 
     fun setOption(questionType: Int, setrepeatNum: Int, setLimitTime: Int){
+
         val r = Runnable {
             val updateOption = userDb?.userDao()?.updateHighScore(User(0, questionType, setrepeatNum, setLimitTime))
             updateOption
-            Log.d(TAG, "업로드 작동")
+            Log.d(TAG, "${questionType}, ${setrepeatNum}, ${setLimitTime}업로드 작동")
         }
 
         val thread = Thread(r)

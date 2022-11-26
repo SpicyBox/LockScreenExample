@@ -36,7 +36,7 @@ class UserInfoFragment : Fragment() {
                     .get()
                     .addOnSuccessListener { document ->
                         if (document != null) {
-                            userEmailTxt.text = document.get("email").toString()
+                            //userEmailTxt.text = document.get("wordList").toString()
                             userNameTxt.text = document.get("nickName").toString()
                             storageRef.child("userProfile/${user.uid}").downloadUrl.addOnSuccessListener { uri ->
                                 Glide.with(this)
@@ -51,6 +51,21 @@ class UserInfoFragment : Fragment() {
                             Toast.makeText(getActivity(), "실패2", Toast.LENGTH_SHORT).show()
                         }
                     }
+
+            db.collection("EnglishWordList").document("EnglishWordList")
+                .get()
+                .addOnSuccessListener { document ->
+                    if (document != null) {
+                        val list: List<String> = document.get("wordList")
+                            .toString()
+                            .replace("]","")
+                            .replace("[","")
+                            .split(",")
+                            .toList()
+                    } else {
+                        Toast.makeText(getActivity(), "실패2", Toast.LENGTH_SHORT).show()
+                    }
+                }
             }
 
         return view
