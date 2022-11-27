@@ -166,7 +166,7 @@ class SettingFragment : Fragment() {
         }
 
         setOptionBtn.setOnClickListener {
-            setOption(questionType,setPsc,setTime)
+            setOption(questionType,setPsc,setTime)//RoomDB 수정
         }
 
         lockScreenSwitch2.setOnCheckedChangeListener{ _, isChecked ->
