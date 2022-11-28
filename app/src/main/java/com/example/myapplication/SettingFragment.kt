@@ -19,6 +19,7 @@ import com.bumptech.glide.Glide
 import com.example.myapplication.Model.User
 import com.firebase.ui.auth.AuthUI
 import com.google.firebase.auth.ktx.auth
+import com.google.firebase.firestore.SetOptions
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.ktx.storage
@@ -32,7 +33,7 @@ class SettingFragment : Fragment() {
     val storageRef = storage.reference
 
     var questionType = 0
-    var setTime = 20
+    var setTime:Long = 20
     var setPsc = 1
 
     private val permissionList = arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE)
@@ -84,6 +85,8 @@ class SettingFragment : Fragment() {
             thread.start()
         }
 
+
+
         setLockScreenPscSpiner.adapter =
             activity?.let { ArrayAdapter.createFromResource(it, R.array.question_array, android.R.layout.simple_spinner_item) }
 
@@ -97,6 +100,15 @@ class SettingFragment : Fragment() {
                     .get()
                     .addOnSuccessListener { document ->
                         if (document != null) {
+                            questionType = document.get("questionType").toString().toInt()
+                            setTime = document.get("setLimitTime").toString().toLong()
+                            setPsc = document.get("setrepeatNum").toString().toInt()
+                            setLockScreenPscSpiner.setSelection(setPsc - 1)
+                            if ((setTime/10 - 2) > 4) {
+                                setLockScreenTimeSpnier.setSelection(5)
+                            } else {
+                                setLockScreenTimeSpnier.setSelection((setTime/10 - 2).toInt())
+                            }
                             storageRef.child("userProfile/${user.uid}").downloadUrl.addOnSuccessListener { uri ->
                                 // Got the download URL for 'users/me/profile.png'
                             }.addOnFailureListener {
@@ -184,8 +196,22 @@ class SettingFragment : Fragment() {
         return view
     }
 
-    fun setOption(questionType: Int, setrepeatNum: Int, setLimitTime: Int){
+    fun setOption(questionType: Int, setrepeatNum: Int, setLimitTime: Long){
 
+        user?.let{
+            val data = hashMapOf(
+                "questionType" to questionType,
+                "setrepeatNum" to setrepeatNum,
+                "setLimitTime" to setLimitTime
+            )
+
+            db.collection("userInfo").document(user.uid)
+                .set(data, SetOptions.merge())
+                .addOnSuccessListener { Log.d(TAG, "DocumentSnapshot successfully written!") }
+                .addOnFailureListener { e -> Log.w(TAG, "오류남!!!", e) }
+        }
+
+        /*
         val r = Runnable {
             val updateOption = userDb?.userDao()?.updateHighScore(User(0, questionType, setrepeatNum, setLimitTime))
             updateOption
@@ -193,7 +219,7 @@ class SettingFragment : Fragment() {
         }
 
         val thread = Thread(r)
-        thread.start()
+        thread.start()*/
     }
 
     fun logout(){
