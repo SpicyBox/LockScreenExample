@@ -24,15 +24,15 @@ class QuestionFragment : Fragment() {
         val englishAlpabetBtn = view.findViewById<Button>(R.id.englishAlpabetBtn)
 
         englishWordBtn.setOnClickListener{
-            startActivity(Intent(getActivity(),QuestionPlayActivity::class.java).putExtra("qeutionType","englishWord"))
+            startActivity(Intent(getActivity(),QuestionPlayActivity::class.java).putExtra("qeutionType","lifeType"))
         }
 
         englishMeanBtn.setOnClickListener{
-            startActivity(Intent(getActivity(),QuestionPlayActivity::class.java).putExtra("qeutionType","englishMean"))
+            startActivity(Intent(getActivity(),QuestionPlayActivity::class.java).putExtra("qeutionType","toeicType"))
         }
 
         englishAlpabetBtn.setOnClickListener{
-            startActivity(Intent(getActivity(),QuestionPlayActivity::class.java).putExtra("qeutionType","englishAlpabet"))
+            startActivity(Intent(getActivity(),QuestionPlayActivity::class.java).putExtra("qeutionType","journalType"))
         }
 
         return view

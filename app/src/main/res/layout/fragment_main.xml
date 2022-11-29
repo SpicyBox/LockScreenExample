@@ -5,44 +5,308 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
-    android:gravity="center"
+    android:gravity="top"
     tools:context=".MainFragment">
 
     <TextView
         android:id="@+id/title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="메인화면"
         android:layout_gravity="center"
-        android:textSize="35dp"/>
+        android:text="랭킹"
+        android:layout_marginVertical="50dp"
+        android:textSize="35dp" />
 
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:layout_marginTop="50dp"
         android:layout_gravity="center">
 
-        <Button
-            android:id="@+id/alarmBtn"
-            android:layout_width="150dp"
-            android:layout_height="200dp"
-            android:layout_marginRight="40dp"
-            android:text="알람" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
 
-        <Button
-            android:id="@+id/questionBtn"
-            android:layout_width="150dp"
-            android:layout_height="200dp"
-            android:text="문제풀기" />
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/lifeType1stImg"
+                android:layout_width="96dp"
+                android:layout_height="96dp"
+                android:layout_gravity="center"
+                android:src="@drawable/defult_profile"
+                app:civ_border_color="#FF000000"
+                app:civ_border_width="3dp" />
+
+            <TextView
+                android:id="@+id/lifeType1stNickNameTxt"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="닉네임"
+                android:textAlignment="center" />
+
+            <TextView
+                android:id="@+id/lifeType1stScoreTxt"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="점수"
+                android:textAlignment="center" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:layout_marginHorizontal="35dp">
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/lifeType2ndImg"
+                android:layout_width="96dp"
+                android:layout_height="96dp"
+                android:layout_gravity="center"
+                android:src="@drawable/defult_profile"
+                app:civ_border_color="#FF000000"
+                app:civ_border_width="3dp" />
+
+            <TextView
+                android:id="@+id/lifeType2ndNickNameTxt"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="닉네임"
+                android:textAlignment="center" />
+
+            <TextView
+                android:id="@+id/lifeType2ndScoreTxt"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="점수"
+                android:textAlignment="center" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/lifeType3rdImg"
+                android:layout_width="96dp"
+                android:layout_height="96dp"
+                android:layout_gravity="center"
+                android:src="@drawable/defult_profile"
+                app:civ_border_color="#FF000000"
+                app:civ_border_width="3dp" />
+
+            <TextView
+                android:id="@+id/lifeType3rdNickNameTxt"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="닉네임"
+                android:textAlignment="center" />
+
+            <TextView
+                android:id="@+id/lifeType3rdScoreTxt"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="점수"
+                android:textAlignment="center" />
+        </LinearLayout>
+
     </LinearLayout>
 
-    <Switch
-        android:id="@+id/lockScreenSwitch"
-        android:layout_width="match_parent"
+    <LinearLayout
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:minHeight="50dp"
-        android:layout_marginLeft="70dp"
-        android:layout_marginRight="70dp"
-        android:text="잠금화면 활성화 스위치" />
+        android:orientation="horizontal"
+        android:layout_marginVertical="30dp"
+        android:layout_gravity="center">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/toeicType1stImg"
+                android:layout_width="96dp"
+                android:layout_height="96dp"
+                android:layout_gravity="center"
+                android:src="@drawable/defult_profile"
+                app:civ_border_color="#FF000000"
+                app:civ_border_width="3dp" />
+
+            <TextView
+                android:id="@+id/toeicType1stNickNameTxt"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="닉네임"
+                android:textAlignment="center" />
+
+            <TextView
+                android:id="@+id/toeicType1stScoreTxt"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="점수"
+                android:textAlignment="center" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:layout_marginHorizontal="35dp">
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/toeicType2ndImg"
+                android:layout_width="96dp"
+                android:layout_height="96dp"
+                android:layout_gravity="center"
+                android:src="@drawable/defult_profile"
+                app:civ_border_color="#FF000000"
+                app:civ_border_width="3dp" />
+
+            <TextView
+                android:id="@+id/toeicType2ndNickNameTxt"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="닉네임"
+                android:textAlignment="center" />
+
+            <TextView
+                android:id="@+id/toeicType2ndScoreTxt"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="점수"
+                android:textAlignment="center" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/toeicType3rdImg"
+                android:layout_width="96dp"
+                android:layout_height="96dp"
+                android:layout_gravity="center"
+                android:src="@drawable/defult_profile"
+                app:civ_border_color="#FF000000"
+                app:civ_border_width="3dp" />
+
+            <TextView
+                android:id="@+id/toeicType3rdNickNameTxt"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="닉네임"
+                android:textAlignment="center" />
+
+            <TextView
+                android:id="@+id/toeicType3rdScoreTxt"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="점수"
+                android:textAlignment="center" />
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_gravity="center">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/journalType1stImg"
+                android:layout_width="96dp"
+                android:layout_height="96dp"
+                android:layout_gravity="center"
+                android:src="@drawable/defult_profile"
+                app:civ_border_color="#FF000000"
+                app:civ_border_width="3dp" />
+
+            <TextView
+                android:id="@+id/journalType1stNickNameTxt"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="닉네임"
+                android:textAlignment="center" />
+
+            <TextView
+                android:id="@+id/journalType1stScoreTxt"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="점수"
+                android:textAlignment="center" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:layout_marginHorizontal="35dp">
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/journalType2ndImg"
+                android:layout_width="96dp"
+                android:layout_height="96dp"
+                android:layout_gravity="center"
+                android:src="@drawable/defult_profile"
+                app:civ_border_color="#FF000000"
+                app:civ_border_width="3dp" />
+
+            <TextView
+                android:id="@+id/journalType2ndNickNameTxt"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="닉네임"
+                android:textAlignment="center" />
+
+            <TextView
+                android:id="@+id/journalType2ndScoreTxt"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="점수"
+                android:textAlignment="center" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/journalType3rdImg"
+                android:layout_width="96dp"
+                android:layout_height="96dp"
+                android:layout_gravity="center"
+                android:src="@drawable/defult_profile"
+                app:civ_border_color="#FF000000"
+                app:civ_border_width="3dp" />
+
+            <TextView
+                android:id="@+id/journalType3rdNickNameTxt"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="닉네임"
+                android:textAlignment="center" />
+
+            <TextView
+                android:id="@+id/journalType3rdScoreTxt"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="점수"
+                android:textAlignment="center" />
+        </LinearLayout>
+
+    </LinearLayout>
+
 </LinearLayout>

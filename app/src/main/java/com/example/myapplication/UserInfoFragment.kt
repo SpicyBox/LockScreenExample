@@ -36,7 +36,7 @@ class UserInfoFragment : Fragment() {
                     .get()
                     .addOnSuccessListener { document ->
                         if (document != null) {
-                            //userEmailTxt.text = document.get("wordList").toString()
+                            userEmailTxt.text = document.get("email").toString()
                             userNameTxt.text = document.get("nickName").toString()
                             storageRef.child("userProfile/${user.uid}").downloadUrl.addOnSuccessListener { uri ->
                                 Glide.with(this)

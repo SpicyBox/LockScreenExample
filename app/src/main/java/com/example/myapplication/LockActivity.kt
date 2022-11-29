@@ -1,6 +1,8 @@
 package com.example.myapplication
 
+import android.app.AlertDialog
 import android.content.ContentValues.TAG
+import android.content.DialogInterface
 import android.os.Bundle
 import android.os.CountDownTimer
 import android.util.Log
@@ -32,6 +34,8 @@ class LockActivity : AppCompatActivity(){
         val choice4Btn = findViewById<Button>(R.id.choice4Btn)
         val lockTimeTxt = findViewById<TextView>(R.id.lockTimeTxt)
         val lockTimeProgressBar = findViewById<ProgressBar>(R.id.lockTimeProgressBar)
+        val answerCountTxt = findViewById<TextView>(R.id.answerCountTxt)
+        val questionTypeTxt = findViewById<TextView>(R.id.questionTypeTxt)
 
         val questionList = listOf("Cat", "Dog", "Book", "Bus", "Phone", "Mail", "Key", "Cap", "Chair", "Table")
         val answerList = listOf("고양이", "개", "책", "버스", "핸드폰", "우편", "열쇠", "모자", "의자", "책상")
@@ -42,22 +46,36 @@ class LockActivity : AppCompatActivity(){
         var setTime:Long = 20
         var setPsc = 1
 
+        fun setQuestionType(questionType: Int){
+            if (questionType == 0){
+                questionTypeTxt.text = "문제유형 : 생활영어"
+            } else if (questionType == 1){
+                questionTypeTxt.text = "문제유형 : 토익"
+            } else {
+                questionTypeTxt.text = "문제유형 : 논술"
+            }
+        }
+
         fun finishActivity(){
             ActivityCompat.finishAffinity(this)
         }
 
         fun setTime(setTime:Long){
-            object : CountDownTimer(1000 * setTime, 1000) {
-                override fun onTick(p0: Long) {
-                    // countDownInterval 마다 호출 (여기선 1000ms)
-                    lockTimeTxt.text = (p0 / 1000).toString()
-                    lockTimeProgressBar.setProgress(p0.toInt())
-                }
+            if (setTime <= 70){
+                object : CountDownTimer(1000 * setTime, 1000) {
+                    override fun onTick(p0: Long) {
+                        // countDownInterval 마다 호출 (여기선 1000ms)
+                        lockTimeTxt.text = (p0 / 1000).toString()
+                        lockTimeProgressBar.setProgress(p0.toInt())
+                    }
 
-                override fun onFinish() {
-                    finishActivity()
-                }
-            }.start()
+                    override fun onFinish() {
+                        finishActivity()
+                    }
+                }.start()
+            } else {
+                lockTimeTxt.text = "제한시간 없음"
+            }
         }
 
         user?.let{
@@ -68,8 +86,8 @@ class LockActivity : AppCompatActivity(){
                         questionType = document.get("questionType").toString().toInt()
                         setTime = document.get("setLimitTime").toString().toLong()
                         setPsc = document.get("setrepeatNum").toString().toInt()
-                        Log.d(TAG, setTime.toString())
-
+                        answerCountTxt.text = "남은문제 : 0/${setPsc}"
+                        setQuestionType(questionType)
                         setTime(setTime)
                     } else {
                         //Toast.makeText(getActivity(), "실패2", Toast.LENGTH_SHORT).show()
@@ -100,11 +118,19 @@ class LockActivity : AppCompatActivity(){
                 if(repeatNum < setPsc) {
                     setQuestion()
                     repeatNum++
+                    answerCountTxt.text = "남은문제 : ${repeatNum - 1}/${setPsc}"
                 } else {
                     finishActivity()
                 }
             } else{
-                Toast.makeText(this, "오답입니다.", Toast.LENGTH_SHORT).show()
+                val setDialog = AlertDialog.Builder(this)
+                setDialog
+                    .setTitle("오답입니다")
+                    .setPositiveButton("확인",
+                        DialogInterface.OnClickListener { dialog, id ->
+                        })
+                setDialog.create()
+                setDialog.show()
             }
         }
 

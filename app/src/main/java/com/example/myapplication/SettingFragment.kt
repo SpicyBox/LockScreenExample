@@ -36,6 +36,10 @@ class SettingFragment : Fragment() {
     var setTime:Long = 20
     var setPsc = 1
 
+    var questionTypeText = "오류"
+    var setTimeText = "오류"
+    var setPscText = "오류"
+
     private val permissionList = arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE)
     private val checkPermission = registerForActivityResult(ActivityResultContracts.RequestMultiplePermissions()) { result ->
         result.forEach {
@@ -73,6 +77,9 @@ class SettingFragment : Fragment() {
         val setOptionBtn = view.findViewById<Button>(R.id.setOptionBtn)
         val lockScreenSwitch2 = view.findViewById<Switch>(R.id.lockScreenSwitch2)
         val setQuestionTypeGroup = view.findViewById<RadioGroup>(R.id.setQuestionTypeGroup)
+        val lifeTypeRadioBtn = view.findViewById<RadioButton>(R.id.lifeTypeRadioBtn)
+        val toeicTypeRadioBtn = view.findViewById<RadioButton>(R.id.toeicTypeRadioBtn)
+        val journalTypeRadioBtn = view.findViewById<RadioButton>(R.id.journalTypeRadioBtn)
 
         val r = Runnable {
             var optionList = userDb?.userDao()?.getAll()
@@ -84,8 +91,6 @@ class SettingFragment : Fragment() {
         if(thread.getState() == Thread.State.NEW) {
             thread.start()
         }
-
-
 
         setLockScreenPscSpiner.adapter =
             activity?.let { ArrayAdapter.createFromResource(it, R.array.question_array, android.R.layout.simple_spinner_item) }
@@ -103,17 +108,28 @@ class SettingFragment : Fragment() {
                             questionType = document.get("questionType").toString().toInt()
                             setTime = document.get("setLimitTime").toString().toLong()
                             setPsc = document.get("setrepeatNum").toString().toInt()
+
+                            if (questionType == 0){
+                                lifeTypeRadioBtn.isChecked = true
+                            } else if (questionType == 1){
+                                toeicTypeRadioBtn.isChecked = true
+                            } else {
+                                journalTypeRadioBtn.isChecked = true
+                            }
+
                             setLockScreenPscSpiner.setSelection(setPsc - 1)
                             if ((setTime/10 - 2) > 4) {
                                 setLockScreenTimeSpnier.setSelection(5)
                             } else {
                                 setLockScreenTimeSpnier.setSelection((setTime/10 - 2).toInt())
                             }
+
                             storageRef.child("userProfile/${user.uid}").downloadUrl.addOnSuccessListener { uri ->
                                 // Got the download URL for 'users/me/profile.png'
                             }.addOnFailureListener {
                                 // Handle any errors
                             }
+
                             userEmailTxt.text = document.get("email").toString()
                             userNameTxt.text = document.get("nickName").toString()
                             storageRef.child("userProfile/${user.uid}").downloadUrl.addOnSuccessListener { uri ->
@@ -198,19 +214,56 @@ class SettingFragment : Fragment() {
 
     fun setOption(questionType: Int, setrepeatNum: Int, setLimitTime: Long){
 
-        user?.let{
-            val data = hashMapOf(
-                "questionType" to questionType,
-                "setrepeatNum" to setrepeatNum,
-                "setLimitTime" to setLimitTime
-            )
+        setQuestionTypeText(questionType)
+        setRepeatNumText(setrepeatNum)
+        setLimitTime(setLimitTime)
 
-            db.collection("userInfo").document(user.uid)
-                .set(data, SetOptions.merge())
-                .addOnSuccessListener { Log.d(TAG, "DocumentSnapshot successfully written!") }
-                .addOnFailureListener { e -> Log.w(TAG, "오류남!!!", e) }
-        }
+        val builder = AlertDialog.Builder(activity)
+        builder
+            .setTitle("잠금화면 설정")
+            .setMessage("다음과 같이 설정하시겠습니까?" +
+                    "\n문제타입 : ${questionTypeText}" +
+                    "\n문제갯수 : ${setPscText}" +
+                    "\n제한시간 : ${setTimeText}")
+            .setPositiveButton("네",
+                DialogInterface.OnClickListener { dialog, id ->
+                    user?.let{
+                        val data = hashMapOf(
+                            "questionType" to questionType,
+                            "setrepeatNum" to setrepeatNum,
+                            "setLimitTime" to setLimitTime
+                        )
 
+                        db.collection("userInfo").document(user.uid)
+                            .set(data, SetOptions.merge())
+                            .addOnSuccessListener {
+                                val setDialog = AlertDialog.Builder(activity)
+                                setDialog
+                                    .setTitle("설정완료")
+                                    .setMessage("설정되었습니다.")
+                                    .setPositiveButton("확인",
+                                        DialogInterface.OnClickListener { dialog, id ->
+                                        })
+                                setDialog.create()
+                                setDialog.show()
+                            }
+                            .addOnFailureListener { e -> Log.w(TAG, "오류남!!!", e) }
+                    }
+                })
+            .setNegativeButton("아니오",
+                DialogInterface.OnClickListener { dialog, id ->
+                    val cancelDialog = AlertDialog.Builder(activity)
+                    cancelDialog
+                        .setTitle("설정취소")
+                        .setMessage("취소되었습니다.")
+                        .setPositiveButton("확인",
+                            DialogInterface.OnClickListener { dialog, id ->
+                            })
+                    cancelDialog.create()
+                    cancelDialog.show()
+                })
+        builder.create()
+        builder.show()
         /*
         val r = Runnable {
             val updateOption = userDb?.userDao()?.updateHighScore(User(0, questionType, setrepeatNum, setLimitTime))
@@ -252,5 +305,36 @@ class SettingFragment : Fragment() {
                 })
         builder.create()
         builder.show()
+    }
+
+    fun setQuestionTypeText(questionType: Int){
+        if(questionType == 0){
+            questionTypeText = "생활영어단어"
+        } else if (questionType == 1){
+            questionTypeText = "토익단어"
+        } else {
+            questionTypeText = "학술단어"
+        }
+    }
+
+    fun setRepeatNumText(setrepeatNum: Int){
+        setPscText  = "${setrepeatNum}문제"
+    }
+
+    fun setLimitTime(setLimitTime: Long){
+        val i = (setLimitTime/10 - 2).toInt()
+        if(i==0){
+            setTimeText = "20초"
+        } else if(i==1){
+            setTimeText = "30초"
+        } else if(i==2){
+            setTimeText = "40초"
+        } else if(i==3){
+            setTimeText = "50초"
+        } else if(i==4){
+            setTimeText = "60초"
+        } else {
+            setTimeText = "제한없음"
+        }
     }
 }
