@@ -14,6 +14,7 @@ import com.google.firebase.firestore.SetOptions
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import java.util.*
+import kotlin.collections.ArrayList
 
 class QuestionPlayActivity:AppCompatActivity() {
 
@@ -34,6 +35,8 @@ class QuestionPlayActivity:AppCompatActivity() {
         val qeutionType = intent.getStringExtra("qeutionType")
         var questionList = listOf("0")
         var answerList = listOf("0")
+        var wrongQuestionList = ArrayList<String>()
+        var wrongAnswerList = ArrayList<String>()
 
         if(qeutionType.equals("lifeType")){
             questionList = listOf("Cat", "Dog", "Book", "Bus", "Phone", "Mail", "Key", "Cap", "Chair", "Table","Cat","Time")//문제 리스트 임시
@@ -58,6 +61,8 @@ class QuestionPlayActivity:AppCompatActivity() {
                     .putExtra("scoreCount", scoreCount)
                     .putExtra("wrongAnswer", wrongAnswer)
                     .putExtra("qeutionType", qeutionType)
+                    .putExtra("wrongQuestionList", wrongQuestionList)
+                    .putExtra("wrongAnswerList", wrongAnswerList)
             )
             finish()
         }
@@ -72,6 +77,8 @@ class QuestionPlayActivity:AppCompatActivity() {
                 qeustionText.text = question[num]
             } else {
                 Toast.makeText(this, "오답입니다.", Toast.LENGTH_SHORT).show()
+                wrongQuestionList.add(question[num])
+                wrongAnswerList.add(answer[num])
                 wrongAnswer++
                 num = Random().nextInt(9)
                 qeustionText.text = question[num]

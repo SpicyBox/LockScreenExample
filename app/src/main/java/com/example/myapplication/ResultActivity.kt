@@ -26,6 +26,8 @@ class ResultActivity:AppCompatActivity() {
         val score = intent.getIntExtra("scoreCount", 0)
         val wrongAnswer = intent.getIntExtra("wrongAnswer", 0)
         val qeutionType = intent.getStringExtra("qeutionType")
+        val wrongAnswerList = intent.getStringArrayListExtra("wrongAnswerList")
+        val wrongQuestionList = intent.getStringArrayListExtra("wrongQuestionList")
         val allAnswer = score + wrongAnswer
 
         val reStartBtn = findViewById<Button>(R.id.reStartBtn)
