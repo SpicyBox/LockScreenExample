@@ -10,6 +10,7 @@ import com.example.myapplication.Model.User
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
+import kotlin.collections.count as count
 
 class ResultActivity:AppCompatActivity() {
 
@@ -29,16 +30,34 @@ class ResultActivity:AppCompatActivity() {
         val wrongAnswerList = intent.getStringArrayListExtra("wrongAnswerList")
         val wrongQuestionList = intent.getStringArrayListExtra("wrongQuestionList")
         val allAnswer = score + wrongAnswer
+        var wrongAnswerTxtString = ""
+        var wrongQuestionTxtString = ""
 
         val reStartBtn = findViewById<Button>(R.id.reStartBtn)
         val backBtn = findViewById<Button>(R.id.backBtn)
         val resultTxt = findViewById<TextView>(R.id.resultTxt)
         val titleTxt = findViewById<TextView>(R.id.titleTxt)
+        val wrongAnswerTxt = findViewById<TextView>(R.id.wrongAnswerTxt)
+        val wrongQuestionTxt = findViewById<TextView>(R.id.wrongQuestionTxt)
 
         val user = Firebase.auth.currentUser
         val firedb = Firebase.firestore
 
         resultTxt.text = score.toString() + "/" + allAnswer.toString()
+
+        if (wrongAnswerList != null) {
+            for (i: Int in 0..wrongAnswerList.count() - 1){
+                wrongAnswerTxtString += wrongAnswerList[i] + "\n"
+            }
+            wrongAnswerTxt.text = wrongAnswerTxtString
+        }
+
+        if (wrongQuestionList != null) {
+            for (i: Int in 0..wrongQuestionList.count() - 1){
+                wrongQuestionTxtString += wrongQuestionList[i] + "\n"
+            }
+            wrongQuestionTxt.text = wrongQuestionTxtString
+        }
 
         reStartBtn.setOnClickListener{
             startActivity(Intent(this, QuestionPlayActivity::class.java))
