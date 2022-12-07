@@ -29,7 +29,7 @@
             android:orientation="vertical">
 
             <de.hdodenhof.circleimageview.CircleImageView
-                android:id="@+id/lifeType1stImg"
+                android:id="@+id/lifeTypeFirstImg"
                 android:layout_width="96dp"
                 android:layout_height="96dp"
                 android:layout_gravity="center"
@@ -38,14 +38,14 @@
                 app:civ_border_width="3dp" />
 
             <TextView
-                android:id="@+id/lifeType1stNickNameTxt"
+                android:id="@+id/lifeTypeFirstNickNameTxt"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="닉네임"
                 android:textAlignment="center" />
 
             <TextView
-                android:id="@+id/lifeType1stScoreTxt"
+                android:id="@+id/lifeTypeFirstScoreTxt"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="점수"
@@ -59,7 +59,7 @@
             android:layout_marginHorizontal="35dp">
 
             <de.hdodenhof.circleimageview.CircleImageView
-                android:id="@+id/lifeType2ndImg"
+                android:id="@+id/lifeTypeSecondImg"
                 android:layout_width="96dp"
                 android:layout_height="96dp"
                 android:layout_gravity="center"
@@ -68,14 +68,14 @@
                 app:civ_border_width="3dp" />
 
             <TextView
-                android:id="@+id/lifeType2ndNickNameTxt"
+                android:id="@+id/lifeTypeSecondNickNameTxt"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="닉네임"
                 android:textAlignment="center" />
 
             <TextView
-                android:id="@+id/lifeType2ndScoreTxt"
+                android:id="@+id/lifeTypeSecondScoreTxt"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="점수"
@@ -89,7 +89,7 @@
             android:orientation="vertical">
 
             <de.hdodenhof.circleimageview.CircleImageView
-                android:id="@+id/lifeType3rdImg"
+                android:id="@+id/lifeTypeThirdImg"
                 android:layout_width="96dp"
                 android:layout_height="96dp"
                 android:layout_gravity="center"
@@ -98,14 +98,14 @@
                 app:civ_border_width="3dp" />
 
             <TextView
-                android:id="@+id/lifeType3rdNickNameTxt"
+                android:id="@+id/lifeTypeThirdNickNameTxt"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="닉네임"
                 android:textAlignment="center" />
 
             <TextView
-                android:id="@+id/lifeType3rdScoreTxt"
+                android:id="@+id/lifeTypeThirdScoreTxt"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="점수"
@@ -127,7 +127,7 @@
             android:orientation="vertical">
 
             <de.hdodenhof.circleimageview.CircleImageView
-                android:id="@+id/toeicType1stImg"
+                android:id="@+id/toeicTypeFirstImg"
                 android:layout_width="96dp"
                 android:layout_height="96dp"
                 android:layout_gravity="center"
@@ -136,14 +136,14 @@
                 app:civ_border_width="3dp" />
 
             <TextView
-                android:id="@+id/toeicType1stNickNameTxt"
+                android:id="@+id/toeicTypeFirstNickNameTxt"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="닉네임"
                 android:textAlignment="center" />
 
             <TextView
-                android:id="@+id/toeicType1stScoreTxt"
+                android:id="@+id/toeicTypeFirstScoreTxt"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="점수"
@@ -157,7 +157,7 @@
             android:layout_marginHorizontal="35dp">
 
             <de.hdodenhof.circleimageview.CircleImageView
-                android:id="@+id/toeicType2ndImg"
+                android:id="@+id/toeicTypeSecondImg"
                 android:layout_width="96dp"
                 android:layout_height="96dp"
                 android:layout_gravity="center"
@@ -166,14 +166,14 @@
                 app:civ_border_width="3dp" />
 
             <TextView
-                android:id="@+id/toeicType2ndNickNameTxt"
+                android:id="@+id/toeicTypeSecondNickNameTxt"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="닉네임"
                 android:textAlignment="center" />
 
             <TextView
-                android:id="@+id/toeicType2ndScoreTxt"
+                android:id="@+id/toeicTypeSecondScoreTxt"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="점수"
@@ -187,7 +187,7 @@
             android:orientation="vertical">
 
             <de.hdodenhof.circleimageview.CircleImageView
-                android:id="@+id/toeicType3rdImg"
+                android:id="@+id/toeicTypeThirdImg"
                 android:layout_width="96dp"
                 android:layout_height="96dp"
                 android:layout_gravity="center"
@@ -196,14 +196,14 @@
                 app:civ_border_width="3dp" />
 
             <TextView
-                android:id="@+id/toeicType3rdNickNameTxt"
+                android:id="@+id/toeicTypeThirdNickNameTxt"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="닉네임"
                 android:textAlignment="center" />
 
             <TextView
-                android:id="@+id/toeicType3rdScoreTxt"
+                android:id="@+id/toeicTypeThirdScoreTxt"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="점수"
@@ -224,7 +224,7 @@
             android:orientation="vertical">
 
             <de.hdodenhof.circleimageview.CircleImageView
-                android:id="@+id/journalType1stImg"
+                android:id="@+id/journalTypeFirstImg"
                 android:layout_width="96dp"
                 android:layout_height="96dp"
                 android:layout_gravity="center"
@@ -233,14 +233,14 @@
                 app:civ_border_width="3dp" />
 
             <TextView
-                android:id="@+id/journalType1stNickNameTxt"
+                android:id="@+id/journalTypeFirstNickNameTxt"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="닉네임"
                 android:textAlignment="center" />
 
             <TextView
-                android:id="@+id/journalType1stScoreTxt"
+                android:id="@+id/journalTypeFirstScoreTxt"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="점수"
@@ -254,7 +254,7 @@
             android:layout_marginHorizontal="35dp">
 
             <de.hdodenhof.circleimageview.CircleImageView
-                android:id="@+id/journalType2ndImg"
+                android:id="@+id/journalTypeSecondImg"
                 android:layout_width="96dp"
                 android:layout_height="96dp"
                 android:layout_gravity="center"
@@ -263,14 +263,14 @@
                 app:civ_border_width="3dp" />
 
             <TextView
-                android:id="@+id/journalType2ndNickNameTxt"
+                android:id="@+id/journalTypeSecondNickNameTxt"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="닉네임"
                 android:textAlignment="center" />
 
             <TextView
-                android:id="@+id/journalType2ndScoreTxt"
+                android:id="@+id/journalTypeSecondScoreTxt"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="점수"
@@ -284,7 +284,7 @@
             android:orientation="vertical">
 
             <de.hdodenhof.circleimageview.CircleImageView
-                android:id="@+id/journalType3rdImg"
+                android:id="@+id/journalTypeThirdImg"
                 android:layout_width="96dp"
                 android:layout_height="96dp"
                 android:layout_gravity="center"
@@ -293,14 +293,14 @@
                 app:civ_border_width="3dp" />
 
             <TextView
-                android:id="@+id/journalType3rdNickNameTxt"
+                android:id="@+id/journalTypeThirdNickNameTxt"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="닉네임"
                 android:textAlignment="center" />
 
             <TextView
-                android:id="@+id/journalType3rdScoreTxt"
+                android:id="@+id/journalTypeThirdScoreTxt"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="점수"

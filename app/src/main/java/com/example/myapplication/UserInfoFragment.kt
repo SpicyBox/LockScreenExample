@@ -51,21 +51,6 @@ class UserInfoFragment : Fragment() {
                             Toast.makeText(getActivity(), "실패2", Toast.LENGTH_SHORT).show()
                         }
                     }
-
-            db.collection("EnglishWordList").document("EnglishWordList")
-                .get()
-                .addOnSuccessListener { document ->
-                    if (document != null) {
-                        val list: List<String> = document.get("wordList")
-                            .toString()
-                            .replace("]","")
-                            .replace("[","")
-                            .split(",")
-                            .toList()
-                    } else {
-                        Toast.makeText(getActivity(), "실패2", Toast.LENGTH_SHORT).show()
-                    }
-                }
             }
 
         return view

@@ -46,7 +46,8 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="문제"
-                android:textAlignment="center" />
+                android:textAlignment="center"
+                android:lineSpacingExtra ="3dp"/>
 
             <TextView
                 android:id="@+id/wrongAnswerTxt"

@@ -1,17 +1,13 @@
 package com.example.myapplication
 
-import android.app.AlertDialog
-import android.content.ContentValues
-import android.content.DialogInterface
+import android.content.ContentValues.TAG
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.widget.Button
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
-import androidx.room.Room
 import com.google.firebase.auth.ktx.auth
-import com.google.firebase.firestore.SetOptions
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import kotlin.collections.count as count
@@ -20,22 +16,23 @@ class ResultActivity:AppCompatActivity() {
 
     val user = Firebase.auth.currentUser
     val db = Firebase.firestore
+    var firstRankUID: String = ""
+    var secondRankUID: String = ""
+    var thirdRankUID: String = ""
+    var firstRankScore: Int = 0
+    var secondRankScore: Int = 0
+    var thirdRankScore: Int = 0
+    var userNickName: String = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_result)
 
-        var db = Room.databaseBuilder(
-            applicationContext,
-            UserDatabase::class.java,
-            "userDB"
-        ).build()
-
         val score = intent.getIntExtra("scoreCount", 0)
         val wrongAnswer = intent.getIntExtra("wrongAnswer", 0)
         val wrongAnswerList = intent.getStringArrayListExtra("wrongAnswerList")
         val wrongQuestionList = intent.getStringArrayListExtra("wrongQuestionList")
-        val qeutionType = intent.getStringExtra("qeutionType")
+        val questionType = intent.getStringExtra("questionType")
         val allAnswer = score + wrongAnswer
         var wrongAnswerTxtString = ""
         var wrongQuestionTxtString = ""
@@ -43,11 +40,15 @@ class ResultActivity:AppCompatActivity() {
         val reStartBtn = findViewById<Button>(R.id.reStartBtn)
         val backBtn = findViewById<Button>(R.id.backBtn)
         val resultTxt = findViewById<TextView>(R.id.resultTxt)
-        val titleTxt = findViewById<TextView>(R.id.titleTxt)
         val wrongAnswerTxt = findViewById<TextView>(R.id.wrongAnswerTxt)
         val wrongQuestionTxt = findViewById<TextView>(R.id.wrongQuestionTxt)
 
         resultTxt.text = score.toString() + "/" + allAnswer.toString()
+
+        questionType?.let {
+            getHighScore(score, it)
+            getRankInfo(score, it)
+        }
 
         if (wrongAnswerList != null) {
             for (i: Int in 0..wrongAnswerList.count() - 1){
@@ -64,7 +65,7 @@ class ResultActivity:AppCompatActivity() {
         }
 
         reStartBtn.setOnClickListener{
-            startActivity(Intent(this, QuestionPlayActivity::class.java))
+            startActivity(Intent(this, QuestionPlayActivity::class.java).putExtra("qeutionType",questionType))
         }
 
         backBtn.setOnClickListener{
@@ -72,11 +73,35 @@ class ResultActivity:AppCompatActivity() {
         }
     }
 
-    fun uploadHighScore(highScore: Int, questionType: String) {
+    fun getUserInfo(userUID: String){
+        db.collection("userInfo").document(userUID)
+            .get()
+            .addOnSuccessListener { document ->
+                if (document != null){
+                    userNickName = document.get("nickName").toString()
+                }
+            }
+    }
 
+    fun getHighScore(score:Int, questionType: String){
+        user?.let {
+            db.collection("userInfo").document(user.uid)
+                .get()
+                .addOnSuccessListener { document ->
+                    if (document != null) {
+                        if (document.get("${questionType}HighScore").toString().toInt() < score
+                            || document.get("${questionType}HighScore").toString().toInt() == null){
+                            uploadHighScore(score, questionType)
+                        }
+                    }
+                }
+        }
+    }
+
+    fun uploadHighScore(highScore: Int, questionType: String) {
         user?.let {
             val data = hashMapOf(
-                 "${questionType}highScore" to highScore
+                 "${questionType}HighScore" to highScore
             )
 
             db.collection("userInfo").document(user.uid)
@@ -84,8 +109,7 @@ class ResultActivity:AppCompatActivity() {
                 .addOnSuccessListener {
                     val setDialog = android.app.AlertDialog.Builder(this)
                     setDialog
-                        .setTitle("설정완료")
-                        .setMessage("설정되었습니다.")
+                        .setTitle("최고기록갱신!")
                         .setPositiveButton("확인",
                             android.content.DialogInterface.OnClickListener { dialog, id ->
                             })
@@ -100,5 +124,63 @@ class ResultActivity:AppCompatActivity() {
                     )
                 }
         }
+    }
+
+    fun getRankInfo(score: Int, questionType: String){
+        db.collection("rank").document(questionType)
+            .get()
+            .addOnSuccessListener { document ->
+                if (document != null) {
+                    firstRankUID = document.get("firstRankUID").toString()
+                    secondRankUID = document.get("secondRankUID").toString()
+                    thirdRankUID = document.get("thirdRankUID").toString()
+                    firstRankScore = document.get("firstRankScore").toString().toInt()
+                    secondRankScore = document.get("secondRankScore").toString().toInt()
+                    thirdRankScore = document.get("thirdRankScore").toString().toInt()
+
+                    user?.let {
+                        if (user.uid.equals(firstRankUID)||user.uid.equals(secondRankUID)||user.uid.equals(thirdRankUID))
+                        else{
+                            when{
+                                firstRankScore < score -> uploadRankScore(score, questionType, "firstRank")
+                                secondRankScore < score -> uploadRankScore(score, questionType, "secondRank")
+                                thirdRankScore < score -> uploadRankScore(score, questionType, "thirdRank")
+                            }
+                        }
+                    }
+                }
+            }
+    }
+
+    fun uploadRankScore(score: Int, questionType: String, collection:String){
+        user?.let{
+            getUserInfo(user.uid)
+            val data = hashMapOf(
+                "${collection}NickName" to userNickName,
+                "${collection}Score" to score,
+                "${collection}UID" to user.uid
+            )
+            db.collection("rank").document(questionType)
+                .set(data, com.google.firebase.firestore.SetOptions.merge())
+                .addOnSuccessListener {
+                    val setDialog = android.app.AlertDialog.Builder(this)
+                    setDialog
+                        .setTitle("랭킹갱신!")
+                        .setMessage("축하드립니다 랭킹 순위권 등록에 성공하였습니다.\n 메인화면에서 확인해주세요!")
+                        .setPositiveButton("확인",
+                            android.content.DialogInterface.OnClickListener { dialog, id ->
+                            })
+                    setDialog.create()
+                    setDialog.show()
+                }
+                .addOnFailureListener { e ->
+                    android.util.Log.w(
+                        android.content.ContentValues.TAG,
+                        "오류남!!!",
+                        e
+                    )
+                }
+        }
+
     }
 }

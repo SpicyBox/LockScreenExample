@@ -37,8 +37,8 @@ class LockActivity : AppCompatActivity(){
         val answerCountTxt = findViewById<TextView>(R.id.answerCountTxt)
         val questionTypeTxt = findViewById<TextView>(R.id.questionTypeTxt)
 
-        val questionList = listOf("Cat", "Dog", "Book", "Bus", "Phone", "Mail", "Key", "Cap", "Chair", "Table")
-        val answerList = listOf("고양이", "개", "책", "버스", "핸드폰", "우편", "열쇠", "모자", "의자", "책상")
+        var questionList = listOf("")
+        var answerList = listOf("")
         var buttonList = mutableListOf<Int>()
         var questionNum = 0
         var repeatNum = 1
@@ -49,10 +49,16 @@ class LockActivity : AppCompatActivity(){
         fun setQuestionType(questionType: Int){
             if (questionType == 0){
                 questionTypeTxt.text = "문제유형 : 생활영어"
+                questionList = listOf("Cat", "Dog", "Book", "Bus", "Phone", "Mail", "Key", "Cap", "Chair", "Table","Time")
+                answerList = listOf("고양이", "개", "책", "버스", "핸드폰", "편지", "열쇠", "모자", "의자", "책상","시간")
             } else if (questionType == 1){
                 questionTypeTxt.text = "문제유형 : 토익"
+                questionList = listOf("Sophistication", "Consecutive", "Quality", "Complete", "Information", "Deliberation", "Convenient", "Increase", "Decrease", "Enhance","Impressive","Reduce")
+                answerList = listOf("세련된", "연속적인", "품질", "완료하다", "정보", "토의", "편리한", "증가하다", "줄다", "향상시키다","인상적인","줄이다")
             } else {
                 questionTypeTxt.text = "문제유형 : 논술"
+                questionList = listOf("Propose", "Investigate", "Address", "Classify", "Employ", "Discover", "Deduce", "Evaluate", "Approximate", "Validate","Approach","Deploy")
+                answerList = listOf("주장하다", "연구하다", "쟁점을 다루다", "분류하다", "수행하다", "발견하다", "추론하다", "분석하다", "계산하다", "입증하다","접근법","배치하다")
             }
         }
 
