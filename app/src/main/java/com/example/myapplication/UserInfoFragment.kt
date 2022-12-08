@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.CalendarView
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
@@ -25,6 +26,7 @@ class UserInfoFragment : Fragment() {
         val userEmailTxt = view.findViewById<TextView>(R.id.userEmailTxt)
         val userNameTxt = view.findViewById<TextView>(R.id.userNameTxt)
         val profileImg = view.findViewById<ImageView>(R.id.profileImg)
+        val calendarView = view.findViewById<CalendarView>(R.id.calendarView)
 
         val defaultImageUrl = "https://firebasestorage.googleapis.com/v0/b/englishcoach-7f95b.appspot.com/o/defult_profile.png?alt=media&token=ea83c03c-3656-4f81-a9ef-4f206a3daa08"
 
