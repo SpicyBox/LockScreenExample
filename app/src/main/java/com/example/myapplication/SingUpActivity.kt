@@ -43,19 +43,25 @@ class SingUpActivity : AppCompatActivity() {
                                             "uid" to user.uid,
                                             "nickName" to nickName.text.toString(),
                                             "email" to emailEditTxt.text.toString(),
-                                            "password" to passwordEditTxt.text.toString()
+                                            "password" to passwordEditTxt.text.toString(),
+                                            "questionType" to 0,
+                                            "setLimitTime" to 30,
+                                            "setrepeatNum" to 1,
+                                            "lifeTypeHighScore" to 0,
+                                            "toeicTypeHighScore" to 0,
+                                            "journalTypeHighScore" to 0
                                         )
                                         db.collection("userInfo").document(user.uid)
                                             .set(userInfo)
-                                            .addOnSuccessListener { Log.d(TAG, "DocumentSnapshot successfully written!") }
+                                            .addOnSuccessListener {
+                                                Toast.makeText(this, "회원가입 성공", Toast.LENGTH_LONG).show()
+                                                AuthUI.getInstance()
+                                                    .signOut(this)
+                                                    .addOnCompleteListener {
+                                                        startActivity(Intent(this,LoginActivity::class.java))
+                                                    } }
                                             .addOnFailureListener { e -> Log.w(TAG, "오류남!!!", e) }
 
-                                        Toast.makeText(this, "회원가입 성공", Toast.LENGTH_LONG).show()
-                                        AuthUI.getInstance()
-                                            .signOut(this)
-                                            .addOnCompleteListener {
-                                                startActivity(Intent(this,LoginActivity::class.java))
-                                            }
                                     }
 
                                 } else {

@@ -3,13 +3,14 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
-        <entry key="..\:/Users/com/Desktop/LockScreenExample-master/LockScreenExample-master/app/src/main/res/layout/activity_lock.xml" value="0.1" />
+        <entry key="..\:/Users/com/Desktop/LockScreenExample-master/LockScreenExample-master/app/src/main/res/layout/activity_lock.xml" value="0.22" />
         <entry key="..\:/Users/com/Desktop/LockScreenExample-master/LockScreenExample-master/app/src/main/res/layout/activity_login.xml" value="0.358695652173913" />
         <entry key="..\:/Users/com/Desktop/LockScreenExample-master/LockScreenExample-master/app/src/main/res/layout/activity_main.xml" value="0.358695652173913" />
         <entry key="..\:/Users/com/Desktop/LockScreenExample-master/LockScreenExample-master/app/src/main/res/layout/activity_question_play.xml" value="0.358695652173913" />
         <entry key="..\:/Users/com/Desktop/LockScreenExample-master/LockScreenExample-master/app/src/main/res/layout/activity_result.xml" value="0.358695652173913" />
         <entry key="..\:/Users/com/Desktop/LockScreenExample-master/LockScreenExample-master/app/src/main/res/layout/activity_singup.xml" value="0.358695652173913" />
         <entry key="..\:/Users/com/Desktop/LockScreenExample-master/LockScreenExample-master/app/src/main/res/layout/fragment_main.xml" value="0.358695652173913" />
+        <entry key="..\:/Users/com/Desktop/LockScreenExample-master/LockScreenExample-master/app/src/main/res/layout/fragment_question.xml" value="0.358695652173913" />
         <entry key="app/src/main/res/drawable-v24/home-48px.xml" value="0.2055" />
         <entry key="app/src/main/res/drawable-v24/home_48px.xml" value="0.1115" />
         <entry key="app/src/main/res/drawable-v24/ic_home.xml" value="0.2055" />
