@@ -55,6 +55,10 @@ class UserInfoFragment : Fragment() {
                     }
             }
 
+        calendarView.setOnDateChangeListener{view, year, month, dayOfMonth ->
+            
+        }
+
         return view
     }
 }

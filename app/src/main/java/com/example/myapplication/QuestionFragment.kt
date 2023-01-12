@@ -15,7 +15,7 @@ class QuestionFragment : Fragment() {
 
         var view = inflater.inflate(R.layout.fragment_question, container, false)
 
-        var wordMaxScoreTxt = view.findViewById<TextView>(R.id.wordMaxScoreTxt)
+        var lifeTypeMaxScoreTxt = view.findViewById<TextView>(R.id.wordMaxScoreTxt)
 
         val englishWordBtn = view.findViewById<Button>(R.id.englishWordBtn)
         val englishMeanBtn = view.findViewById<Button>(R.id.englishMeanBtn)
